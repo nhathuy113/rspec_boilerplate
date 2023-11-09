@@ -34,5 +34,5 @@
 
 #/.keep
 .keep
-#.idea/
+.idea
 #/app/controllers/concerns/.keep
