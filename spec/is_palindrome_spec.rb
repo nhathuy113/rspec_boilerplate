@@ -1,6 +1,6 @@
 def is_palindrome_string?(given_string, is_case_sensitive=false)
-  return false if given_string.blank?
-  clean_string = given_string.strip
+  return false if given_string.blank? # prevent empty
+  clean_string = given_string.strip.gsub(/\s/,'') # remove trailing/leading whitespace
   clean_string = clean_string.downcase if not is_case_sensitive
 
   return clean_string == clean_string.reverse
