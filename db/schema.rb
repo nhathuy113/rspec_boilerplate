@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "smartphone_models", force: :cascade do |t|
     t.string "name"
     t.integer "year_id", null: false

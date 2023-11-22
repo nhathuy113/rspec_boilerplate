@@ -4,6 +4,7 @@ require 'rails_helper'
 
 # describe 'SmartphonesController', type: :controller do
 describe SmartphonesController, type: :controller do
+<<<<<<< HEAD
   let!(:brand) { create(:brand) }
   let!(:year) { create(:year) }
   let!(:os_version) { create(:os_version) }
