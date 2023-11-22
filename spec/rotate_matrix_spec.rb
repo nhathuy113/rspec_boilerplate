@@ -1,35 +1,52 @@
-def filling_maxtrix(matrix)
-  # filling or checking
-  #
-  (0...matrix.size).each do |x|
-    (0...matrix.first.size).each do |y|
-      return if matrix[x][y].nil?
-    end
-  end
-
-  matrix.any? { |row| row.compact.size != matrix.size }
-  # return if not
-
-  suspicious_rotate_matrix_counter_clockwise(matrix)
-end
-
 def suspicious_rotate_matrix_counter_clockwise(matrix)
   return matrix if matrix.blank?
-  length = matrix.size # 1
-  height = matrix.first.size # 1
-  result = Array.new(height) { Array.new(length, 0) } # size of matrix O(x * y)
+  length = matrix.size
+  height = matrix.first.size
 
-  # space complex = O(x * y)
+  max_size_index = [length, height].max - 1
 
-  (0...length).each do |x|
-    (0...height).each do |y|
-      result[height - 1 - y][x] = matrix[x][y]
+  (0..max_size_index).each do |xy|
+    (xy..max_size_index).each do |y|
+      if not matrix[y] and matrix[xy][y]
+        matrix.push [matrix[xy][y]]
+        puts "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" if not matrix[y] and matrix[xy][y]
+        binding.pry
+        next
+      end
+
+      matrix.push [] unless matrix[y]
+      matrix[y][xy] = matrix[xy][y] if matrix[xy][y]
+      puts "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" if matrix[xy][y]
+      binding.pry
     end
   end
 
-  return result
-  end
+  # (0...length).each do |x|
+  #   (0...height).each do |y|
+  #     # result[height - 1 - y][x] = matrix[x][y] ## swapping
+  #
+  #   end
+  # end
+
+  return matrix
 end
+
+# def suspicious_rotate_matrix_counter_clockwise(matrix)
+#   return matrix if matrix.blank?
+#   length = matrix.size # 1
+#   height = matrix.first.size # 1
+#   result = Array.new(height) { Array.new(length, 0) } # size of matrix O(x * y)
+#
+#   # space complex = O(x * y)
+#
+#   (0...length).each do |x|
+#     (0...height).each do |y|
+#       result[height - 1 - y][x] = matrix[x][y]
+#     end
+#   end
+#
+#   return result
+# end
 
 # spec/suspicious_rotate_matrix_counter_clockwise_spec.rb
 
@@ -50,10 +67,37 @@ describe "suspicious_rotate_matrix_counter_clockwise" do
         [
           [1,  2,  3,  4],
           [5,  6,  7,  8],
-          [9,  10, 11, 12],
-          [13, 14, 15, 16]
         ]
       }
+
+      # [
+      #   [1,  5],
+      #   [2,  6,  7,  8],
+      #   [3],
+      #   [4]
+      # ]
+
+      # [
+      #   [1,  5,  9],
+      #   [2,  6,  10],
+      #   [3,  7, 11, 12],
+      #   [4,  8]
+      # ]
+      #
+      # [
+      #   [1,  5,  9],
+      #   [2,  6,  10],
+      #   [3,  7, 11],
+      #   [4,  8, 12]
+      # ]
+
+      # [
+      #   [1,  5,  9],
+      #   [2,  6,  7,  8],
+      #   [3,  10, 11, 12],
+      #   [4]
+      # ]
+
 
       # [
       #   [4,  5,  9,  13],

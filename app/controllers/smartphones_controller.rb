@@ -1,4 +1,7 @@
 class SmartphonesController < ApplicationController
+  # before_action :is_login
+  # before_action :is_authorized
+
   def create
     smartphone = Smartphone.new(smartphone_params)
 

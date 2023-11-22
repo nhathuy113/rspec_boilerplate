@@ -4,22 +4,22 @@ require 'rails_helper'
 
 # describe 'SmartphonesController', type: :controller do
 describe SmartphonesController, type: :controller do
+  let(:valid_params) do
+    {
+      smartphone: {
+        manufacturer_id: 1,
+        model_id: 1,
+        memory_id: 1,
+        year_id: 1,
+        os_version_id: 1,
+        body_color_id: 1,
+        price: 999
+      }
+    }
+  end
+
   describe 'POST #create' do
     context 'with valid parameters' do
-      let(:valid_params) do
-        {
-          smartphone: {
-            manufacturer_id: 1,
-            model_id: 1,
-            memory_id: 1,
-            year_id: 1,
-            os_version_id: 1,
-            body_color_id: 1,
-            price: 999
-          }
-        }
-      end
-
       it 'creates a new smartphone' do
         expect {
           post :create, params: valid_params

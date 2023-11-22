@@ -33,5 +33,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'pry-byebug'
   gem 'awesome_print'
+  gem 'rubocop', require: false
+  gem 'pry'
+  gem 'pry-byebug'
 end
 
