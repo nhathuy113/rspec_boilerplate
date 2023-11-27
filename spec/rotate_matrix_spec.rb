@@ -9,15 +9,22 @@ def suspicious_rotate_matrix_counter_clockwise(matrix)
     (xy..max_size_index).each do |y|
       if not matrix[y] and matrix[xy][y]
         matrix.push [matrix[xy][y]]
+        matrix[xy].delete y
         puts "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" if not matrix[y] and matrix[xy][y]
-        binding.pry
+        puts matrix
+        # binding.pry
         next
       end
 
       matrix.push [] unless matrix[y]
-      matrix[y][xy] = matrix[xy][y] if matrix[xy][y]
+      if matrix[xy][y]
+        swap = matrix[y][xy]
+        matrix[y][xy] = matrix[xy][y]
+        matrix[xy][y] = swap
+      end
       puts "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" if matrix[xy][y]
-      binding.pry
+      puts matrix
+      # binding.pry
     end
   end
 
