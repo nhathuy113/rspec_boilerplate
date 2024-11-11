@@ -5,20 +5,45 @@
 #   gem "sqlite3"
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
+  encoding: utf8mb4
+  reconnect: false
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  username: root
+  password: password
+#  host: host.docker.internal
+  host: mysql
+  port: 3306
+
+default-legacy: &default-legacy
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  username: postgres
+  password: secret
+  host: postgresql
+  port: 5432
+
+
+development-legacy:
+  <<: *default-legacy
+  database: es-demo-legacy-development
 
 development:
   <<: *default
-  database: storage/development.sqlite3
+#  database_url: mysql2://root:password@host.docker.internal:3306/es-demo-development
+#  database_url: mysql2://root:password@mysql:3306/es-demo-development
+#  database_url: mysql2://root:password@localhost:6033/es-demo-development
+  database: es-demo-development
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: storage/test.sqlite3
+  database: es-demo-test
 
 production:
   <<: *default
