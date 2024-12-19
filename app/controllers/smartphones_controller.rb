@@ -9,7 +9,7 @@ class SmartphonesController < ApplicationController
     ## This fat controller method serve as demo for coding test or POC only.
     errors = []
     errors.push I18n.t("errors.smartphones.invalid_reference.manufacturer") unless Manufacturer.exists?(smartphone.manufacturer_id)
-    errors.push I18n.t("errors.smartphones.invalid_reference.model") unless Model.exists?(smartphone.model_id)
+    errors.push I18n.t("errors.smartphones.invalid_reference.model") unless SmartphoneModel.exists?(smartphone.model_id)
     errors.push I18n.t("errors.smartphones.invalid_reference.memory") unless Memory.exists?(smartphone.memory_id)
     errors.push I18n.t("errors.smartphones.invalid_reference.year") unless Year.exists?(smartphone.year_id)
     errors.push I18n.t("errors.smartphones.invalid_reference.os_version") unless OsVersion.exists?(smartphone.os_version_id)
@@ -19,7 +19,7 @@ class SmartphonesController < ApplicationController
       return
     end
 
-    if smartphone.manufacturer_id != Model.find(smartphone.model_id).manufacturer_id
+    if smartphone.manufacturer_id != SmartphoneModel.find(smartphone.model_id).manufacturer_id
       errors.push I18n.t("errors.smartphones.not_match_manufacturer")
     end
     # if smartphone.price.blank? or not smartphone.price.kind_of? Integer
@@ -32,7 +32,7 @@ class SmartphonesController < ApplicationController
     end
 
     if smartphone.save
-      # Model.find(smartphone.model_id).update(manufacturer_id: smartphone.manufacturer_id)
+      # SmartphoneModel.find(smartphone.model_id).update(manufacturer_id: smartphone.manufacturer_id)
       render json: smartphone, status: :created
     else
       render json: smartphone.errors, status: :unprocessable_entity
