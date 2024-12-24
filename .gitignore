@@ -32,7 +32,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-#/.keep
 .keep
+/.keep
 .idea
-#/app/controllers/concerns/.keep
+/.idea
