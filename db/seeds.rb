@@ -1,55 +1,113 @@
+# db/seeds.rb
 
-# Manufacturer seeds
-Manufacturer.create(name: 'Apple')
-Manufacturer.create(name: 'Samsung')
-Manufacturer.create(name: 'Google')
+# Brands
+brands = [
+  { name: 'Apple' },
+  { name: 'Samsung' },
+  { name: 'Google' },
+  { name: 'OnePlus' },
+  { name: 'Xiaomi' }
+]
 
-# SmartphoneModel seeds
-SmartphoneModel.create(name: 'iPhone X', manufacturer: Manufacturer.find_by(name: 'Apple'))
-SmartphoneModel.create(name: 'Galaxy S21', manufacturer: Manufacturer.find_by(name: 'Samsung'))
-SmartphoneModel.create(name: 'Pixel 5', manufacturer: Manufacturer.find_by(name: 'Google'))
+brands.each do |brand|
+  Brand.create!(name: brand[:name])
+end
 
-# Memory seeds
-Memory.create(size: '64GB')
-Memory.create(size: '128GB')
+# Years
+years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+years.each do |year|
+  Year.create!(number: year)
+end
 
-# Year seeds
-Year.create(year: '2020')
-Year.create(year: '2021')
+# OS Versions
+os_versions = [
+  { version: 'iOS 12'},
+  { version: 'iOS 13'},
+  { version: 'iOS 14'},
+  { version: 'Android 11' },
+  { version: 'Android 12' },
+  { version: 'Android 13' }
+]
 
-# OS Version seeds
-OsVersion.create(version: 'iOS 14')
-OsVersion.create(version: 'Android 11')
+os_versions.each do |os_version|
+  OsVersion.create!(version: os_version[:version])
+end
 
-# Body Color seeds
-BodyColor.create(color: 'Black')
-BodyColor.create(color: 'Silver')
-BodyColor.create(color: 'Gold')
+# SmartPhone Models
+smartphone_models = [
+  { name: 'iPhone 12', year_id: 8, os_version_id: 3, brand_id: 1 },
+  { name: 'Galaxy S21', year_id: 8, os_version_id: 6, brand_id: 1 },
+  { name: 'Pixel 6', year_id: 8, os_version_id: 6, brand_id: 2 },
+  { name: 'OnePlus 9 Pro', year_id: 8, os_version_id: 6, brand_id: 3 },
+  { name: 'Redmi Note 11', year_id: 8, os_version_id: 6, brand_id: 4 }
+]
 
-# Smartphone seeds
-Smartphone.create(
-  manufacturer: Manufacturer.find_by(name: 'Apple'),
-  smartphone_model: SmartphoneModel.find_by(name: 'iPhone X'),
-  memory: Memory.find_by(size: '64GB'),
-  year: Year.find_by(year: '2020'),
-  os_version: OsVersion.find_by(version: 'iOS 14'),
-  body_color: BodyColor.find_by(color: 'Black'),
-  price: 999.99
-)
+smartphone_models.each do |model|
+  SmartphoneModel.create!(
+    name: model[:name],
+    year_id: model[:year_id],
+    os_version_id: model[:os_version_id],
+    brand_id: model[:brand_id]
+  )
+end
 
-Smartphone.create(
-  manufacturer: Manufacturer.find_by(name: 'Samsung'),
-  smartphone_model: SmartphoneModel.find_by(name: 'Galaxy S21'),
-  memory: Memory.find_by(size: '128GB'),
-  year: Year.find_by(year: '2021'),
-  os_version: OsVersion.find_by(version: 'Android 11'),
-  body_color: BodyColor.find_by(color: 'Silver'),
-  price: 899.99
-)
+# Body Colors
+body_colors = [
+  { color: 'Space Gray' },
+  { color: 'Graphite' },
+  { color: 'Silver' },
+  { color: 'Black' },
+  { color: 'White' }
+]
 
-# 1. Ease of retrieve and update
-apple = Manufacturer.find_by 'apple'
-apple.smartphone_model.all
+body_colors.each do |color|
+  BodyColor.create!(color: color[:color])
+end
 
-# 2. Case study
-# study business of real life system
+# Memories
+memories = [
+  { size: '64GB' },
+  { size: '128GB' },
+  { size: '256GB' },
+  { size: '512GB' }
+]
+
+memories.each do |memory|
+  Memory.create!(size: memory[:size])
+end
+
+# Smartphones (using existing data)
+smartphones = [
+  { smartphone_model_id: 1, imei: 'abc1' },
+  { smartphone_model_id: 2, imei: 'abc2' },
+  { smartphone_model_id: 3, imei: 'abc3' },
+  { smartphone_model_id: 4, imei: 'abc4' }
+]
+
+
+# { smartphone_model_id: 1, smartphone_option: 1, imei: 'abc1' },
+#   { smartphone_model_id: 2, smartphone_option: 1, imei: 'abc2' },
+#   { smartphone_model_id: 3, smartphone_option: 1, imei: 'abc3' },
+#   { smartphone_model_id: 4, smartphone_option: 1, imei: 'abc4' }
+
+smartphones.each do |smartphone|
+  # Smartphone.create!(smartphone_model_id: smartphone[:smartphone_model_id], smartphone_option_id: smartphone[:smartphone_model_id], imei: smartphone[:imei])
+  Smartphone.create!(smartphone_model_id: smartphone[:smartphone_model_id], imei: smartphone[:imei])
+end
+
+# Model Options (associating models with body colors and memories)
+model_options = [
+  { smartphone_model_id: 1, body_color_id: 2, memory_id: 2 },
+  { smartphone_model_id: 2, body_color_id: 3, memory_id: 3 },
+  { smartphone_model_id: 3, body_color_id: 4, memory_id: 1 },
+]
+``
+model_options.each do |option|
+  ModelOption.create!(
+    smartphone_model_id: option[:smartphone_model_id],
+    body_color_id: option[:body_color_id],
+    memory_id: option[:memory_id]
+  )
+end
+
+puts "Seeding complete!"

@@ -37,7 +37,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
     t.datetime "updated_at", null: false
     t.index ["body_color_id"], name: "index_model_options_on_body_color_id"
     t.index ["memory_id"], name: "index_model_options_on_memory_id"
-    t.index ["smartphone_model_id"], name: "index_model``_options_on_smartphone_model_id"
+    t.index ["smartphone_model_id"], name: "index_model_options_on_smartphone_model_id"
   end
 
   create_table "os_versions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
   end
 
   create_table "smartphones", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "imei"
     t.bigint "smartphone_model_id", null: false
     t.index ["smartphone_model_id"], name: "index_smartphones_on_smartphone_model_id"
   end
