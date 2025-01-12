@@ -58,18 +58,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
     t.index ["year_id"], name: "index_smartphone_models_on_year_id"
   end
 
-  create_table "smartphone_options", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "smartphone_id", null: false
-    t.bigint "model_option_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["model_option_id"], name: "index_smartphone_options_on_model_option_id"
-    t.index ["smartphone_id"], name: "index_smartphone_options_on_smartphone_id"
-  end
-
   create_table "smartphones", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "imei"
     t.bigint "smartphone_model_id", null: false
+    t.bigint "model_option_id", null: false
+    t.index ["model_option_id"], name: "index_smartphones_on_model_option_id"
     t.index ["smartphone_model_id"], name: "index_smartphones_on_smartphone_model_id"
   end
 
@@ -85,7 +78,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
   add_foreign_key "smartphone_models", "brands"
   add_foreign_key "smartphone_models", "os_versions"
   add_foreign_key "smartphone_models", "years"
-  add_foreign_key "smartphone_options", "model_options"
-  add_foreign_key "smartphone_options", "smartphones"
+  add_foreign_key "smartphones", "model_options"
   add_foreign_key "smartphones", "smartphone_models"
 end

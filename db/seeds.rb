@@ -50,6 +50,8 @@ smartphone_models.each do |model|
     brand_id: model[:brand_id]
   )
 end
+puts "Seeding Smartphone Model complete!"
+
 
 # Body Colors
 body_colors = [
@@ -76,32 +78,16 @@ memories.each do |memory|
   Memory.create!(size: memory[:size])
 end
 
-# Smartphones (using existing data)
-smartphones = [
-  { smartphone_model_id: 1, imei: 'abc1' },
-  { smartphone_model_id: 2, imei: 'abc2' },
-  { smartphone_model_id: 3, imei: 'abc3' },
-  { smartphone_model_id: 4, imei: 'abc4' }
-]
 
-
-# { smartphone_model_id: 1, smartphone_option: 1, imei: 'abc1' },
-#   { smartphone_model_id: 2, smartphone_option: 1, imei: 'abc2' },
-#   { smartphone_model_id: 3, smartphone_option: 1, imei: 'abc3' },
-#   { smartphone_model_id: 4, smartphone_option: 1, imei: 'abc4' }
-
-smartphones.each do |smartphone|
-  # Smartphone.create!(smartphone_model_id: smartphone[:smartphone_model_id], smartphone_option_id: smartphone[:smartphone_model_id], imei: smartphone[:imei])
-  Smartphone.create!(smartphone_model_id: smartphone[:smartphone_model_id], imei: smartphone[:imei])
-end
-
+puts "Seeding Body color and Memory complete!"
+#----------------------------------------
 # Model Options (associating models with body colors and memories)
 model_options = [
   { smartphone_model_id: 1, body_color_id: 2, memory_id: 2 },
   { smartphone_model_id: 2, body_color_id: 3, memory_id: 3 },
   { smartphone_model_id: 3, body_color_id: 4, memory_id: 1 },
 ]
-``
+
 model_options.each do |option|
   ModelOption.create!(
     smartphone_model_id: option[:smartphone_model_id],
@@ -109,5 +95,27 @@ model_options.each do |option|
     memory_id: option[:memory_id]
   )
 end
-
-puts "Seeding complete!"
+#
+#
+#
+# # # Smartphone Options
+# # smartphone_options = [
+# #   { smartphone_id: 1, model_option_id: 1 },
+# #   { smartphone_id: 2, model_option_id: 1 },
+# #   { smartphone_id: 3, model_option_id: 2 },
+# # ]
+#
+#
+# ## Smartphone (using existing data)
+# smartphones = [
+#   { model_option_id: 1, imei: 'abc1' },
+#   { model_option_id: 2, imei: 'abc2' },
+#   { model_option_id: 3, imei: 'abc3' },
+#   { model_option_id: 4, imei: 'abc4' }
+# ]
+# smartphones.each do |smartphone|
+#   # Smartphone.create!(smartphone_model_id: smartphone[:smartphone_model_id], smartphone_option_id: smartphone[:smartphone_model_id], imei: smartphone[:imei])
+#   Smartphone.create!(model_option_id: smartphone[:model_option_id], imei: smartphone[:imei])
+# end
+#
+# puts "Seeding complete!"
