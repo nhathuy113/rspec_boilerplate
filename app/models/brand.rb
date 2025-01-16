@@ -1,3 +1,4 @@
 class Brand < ApplicationRecord
   has_many :smartphone_models
+  has_many :smartphones, through: :smartphone_models
 end
