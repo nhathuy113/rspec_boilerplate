@@ -6,7 +6,6 @@ class CreateSmartphoneModelAndModelOptions < ActiveRecord::Migration[7.1]
       t.references :os_version, null: false, foreign_key: true
       t.references :brand, null: false, foreign_key: true
 
-
       t.timestamps
     end
 

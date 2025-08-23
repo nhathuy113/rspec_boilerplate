@@ -1,22 +1,25 @@
 # db/seeds.rb
 
-# Brands
-brands = [
-  { name: 'Apple' },
-  { name: 'Samsung' },
-  { name: 'Google' },
-  { name: 'OnePlus' },
-  { name: 'Xiaomi' }
-]
-
-brands.each do |brand|
-  Brand.create!(name: brand[:name])
-end
-
-# Years
 years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+
+# why no use
+# years = (2018..2023).to_a => 2018 1/2
+
 years.each do |year|
   Year.create!(number: year)
+end
+
+# Brands
+brands = %w[Apple Samsung Google Huawei OnePlus]
+model_suffixes = {
+  'Apple'    => 'iPhone',
+  'Samsung'  => 'Galaxy',
+  'Google'   => 'Pixel',
+  'Huawei'   => 'Mate',
+  'OnePlus'  => 'OnePlus'
+}
+brands.each do |brand|
+  Brand.create!(name: brand[:name])
 end
 
 # OS Versions
@@ -28,10 +31,59 @@ os_versions = [
   { version: 'Android 12' },
   { version: 'Android 13' }
 ]
-
 os_versions.each do |os_version|
   OsVersion.create!(version: os_version[:version])
 end
+
+# Define possible options for storage and colors
+storage_options = [64, 128, 256, 512]
+color_options = %w[Black White Gold Blue Red Green]
+edition_labels  = %w[Standard Pro Plus Lite]
+
+years.each do |year|
+  brands.each do |brand|
+    rand(1..2).times do
+      # brand_make_smartphone_model
+      new_smartphone_released_by brand
+    end
+  end
+end
+
+def new_smartphone_released_by(brand)
+  os_name = 'Android'
+  # os_name = 'iOS' if brand.name == SmartphoneModel.APPLE
+  os_name = 'iOS' if brand.is_apple?
+
+  SmartphoneModel.create!(
+    name: model[:name],h
+    year_id: model[:year_id],
+    os_version_id: model[:os_version_id],
+    brand_id: brand
+  )
+
+  combinations = storage_options.product(color_options)
+
+  combinations.each do |comb|
+    storage, color = comb
+
+    ModelOption.create!(
+      body_color: color,
+      memory: storage
+    )
+  end
+end
+
+# TODO
+SmartphoneModel.create!(
+  name: model[:name],
+  year_id: model[:year_id],
+  os_version_id: model[:os_version_id],
+  brand_id: model[:brand_id]
+)
+
+
+
+# os_versions.select { |os| os.start_with? os_name }
 
 # SmartPhone Models
 smartphone_models = [

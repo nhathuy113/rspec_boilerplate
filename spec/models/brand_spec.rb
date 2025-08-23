@@ -1,17 +1,5 @@
-# frozen_string_literal: true
+require 'rails_helper'
 
-require 'test/unit'
-
-class BrandTest < Test::Unit::TestCase
-  def setup
-    # Do nothing
-  end
-
-  def teardown
-    # Do nothing
-  end
-
-  def test
-    pend 'Not implemented'
-  end
+RSpec.describe Brand, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

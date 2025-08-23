@@ -7,9 +7,6 @@ require 'spec_helper'
 # load rails
 require File.expand_path("../../config/environment", __FILE__)
 
-# load rspec
-require 'rspec-rails'
-require 'rspec/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -24,7 +21,7 @@ require 'rspec/rails'
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+# Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -34,5 +31,40 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 # ActiveRecord::Migration.maintain_test_schema!
 
 
+# load rspec
+require 'rspec-rails'
+require 'rspec/rails'
+require 'factory_bot_rails'
+# Dir[Rails.root.join('spec', 'factories', '**', '*.rb')].each { |f| require f }
+
 RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  # config.before(:suite) do
+  #   FactoryBot.find_definitions
+  # end
+
+
+  # config.include Shoulda::Matchers::ActiveModel, type: :model
+  # config.include Shoulda::Matchers::ActiveRecord, type: :model
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
 end
