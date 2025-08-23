@@ -2,7 +2,7 @@ FROM ruby:3.1.6
 
 # Install system dependencies
 RUN apt-get update -y \
-    && apt-get install -y nodejs npm \
+    && apt-get install -y nodejs npm default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
 ## Install Rails and gems
@@ -18,7 +18,7 @@ RUN apt-get update -y \
 #    && cd ../app \
 #    && bundle install --jobs=4 --retry=3
 
-WORKDIR /es-demo
+WORKDIR /app
 
 # Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
@@ -29,13 +29,14 @@ RUN bundle install --jobs=4 --retry=3
 # Copy application files
 COPY . .
 
-# Create symbolic links
-#RUN ln -sf . /es-demo/current_directory
-#RUN ln -sf C:\Users\nhath\RubymineProjects\rspec-boilerplate /es-demo
-#RUN ln -sf . /es-demo
+# Make entrypoint script executable
+RUN chmod +x docker-entrypoint.sh
 
-# Run migrations
-#RUN bundle exec rails db:create db:migrate
+# Expose port
+EXPOSE 3000
+
+# Set entrypoint
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
 # Start Rails server
-CMD ["bundle", "exec", "rails", "server", "-p", "3000", "-b", "'0.0.0.0'"]
+CMD ["bundle", "exec", "rails", "server", "-p", "3000", "-b", "0.0.0.0"]
