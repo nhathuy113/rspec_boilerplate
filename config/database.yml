@@ -28,14 +28,14 @@ default-legacy: &default-legacy
 
 development-legacy:
   <<: *default-legacy
-  database: es-demo-legacy-development
+  database: rspec_boilerplate_legacy_development
 
 development:
   <<: *default
-#  database_url: mysql2://root:password@host.docker.internal:3306/es-demo-development
-#  database_url: mysql2://root:password@mysql:3306/es-demo-development
-#  database_url: mysql2://root:password@localhost:6033/es-demo-development
-  database: es-demo-development
+#  database_url: mysql2://root:password@host.docker.internal:3306/rspec_boilerplate_development
+#  database_url: mysql2://root:password@mysql:3306/rspec_boilerplate_development
+#  database_url: mysql2://root:password@localhost:6033/rspec_boilerplate_development
+  database: rspec_boilerplate_development
 
 
 # Warning: The database defined as "test" will be erased and
@@ -43,7 +43,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: es-demo-test
+  database: rspec_boilerplate_test
 
 production:
   <<: *default
