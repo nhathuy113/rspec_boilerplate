@@ -1,154 +1,72 @@
-# RSpec Boilerplate - Smartphone Management System
+# RSpec Boilerplate - Smartphone Management System with OAuth Authentication
 
-A Ruby on Rails API application with comprehensive RSpec testing framework for managing smartphone inventory. This project serves as a boilerplate for building robust Rails applications with proper testing practices.
+A comprehensive Ruby on Rails application with Google OAuth authentication, smartphone inventory management API, and extensive RSpec testing framework. This project serves as a robust boilerplate for building modern Rails applications with authentication and testing best practices.
 
 ## 🚀 Features
 
-- **RESTful API** for smartphone registration and management
-- **Comprehensive RSpec Testing** with model and controller specs
-- **Database Models** with proper associations and validations
-- **Elasticsearch Integration** ready for search functionality
-- **Docker Support** for Elasticsearch deployment
-- **Code Quality Tools** (RuboCop, Pry debugging)
+- ✅ **Google OAuth authentication** with secure session management
+- ✅ **RESTful API** for smartphone registration and management
+- ✅ **Comprehensive RSpec Testing** with FactoryBot, DatabaseCleaner, Shoulda Matchers
+- ✅ **MySQL database** with proper associations and validations
+- ✅ **Elasticsearch integration** for search functionality
+- ✅ **Modern Bootstrap UI** with responsive design
+- ✅ **Docker Compose** with health checks and proper service dependencies
+- ✅ **Code Quality Tools** (RuboCop, Pry debugging)
 
 ## 📋 Prerequisites
 
-- Ruby 3.1.6
+- Docker and Docker Compose
+- Google OAuth credentials (see setup below)
+- Ruby 3.1.6 (for local development)
 - Rails 7.1.1
-- MySQL 8.0 (Primary) / PostgreSQL 13 (Legacy)
-- Docker & Docker Compose (for full development stack)
 
-## 🐳 Docker Development Environment
+## 🐳 Quick Start with Docker
 
-### Quick Start
-```bash
-# 1. Clone and setup environment
-cp .env.example .env
+### 1. Google OAuth Setup
 
-# 2. Start all services
-docker-compose up -d
+1. Go to [Google Cloud Console](https://console.developers.google.com/)
+2. Create a new project or select existing one
+3. Enable Google+ API
+4. Go to Credentials → Create Credentials → OAuth 2.0 Client IDs
+5. Set authorized redirect URIs to: `http://localhost:3000/auth/google_oauth2/callback`
+6. Copy your Client ID and Client Secret
 
-# 3. Setup database (wait ~30 seconds for MySQL to start)
-docker-compose exec web rails db:create db:migrate db:seed
+### 2. Environment Variables
 
-# 4. Access application
-open http://localhost:3000
-```
-
-### Available Development Environments
-
-Environment | File | MySQL Port | PostgreSQL Port | Purpose
---- | --- | --- | --- | ---
-Main | docker-compose.yml | 3306 | - | Full stack with Elasticsearch/Kibana
-DevContainer | .devcontainer/docker-compose.yml | 3307 | 5433 | VS Code development
-
-### Services & Access Points
-
-Main Environment:
-
-- Rails API: http://localhost:3000
-- MySQL: localhost:3306 (root/password)
-- Elasticsearch: http://localhost:9200
-- Kibana: http://localhost:5601
-
-DevContainer Environment:
-
-- MySQL: localhost:3307 (root/password)
-- PostgreSQL: localhost:5433 (postgres/secret)
-
-### Database Management
+Create a `.env` file in the root directory:
 
 ```bash
-# View application logs
-docker-compose logs -f web
-
-# Access Rails console
-docker-compose exec web rails console
-
-# Reset database
-docker-compose exec web rails db:reset
-
-# Stop all services
-docker-compose down
-
-# Reset all data (including volumes)
-docker-compose down -v
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
 ```
 
-### Troubleshooting
-
-Common Issues:
-
-- Startup time: MySQL needs 30-60 seconds to initialize on first run
-- Port conflicts: Ensure ports 3000, 3306, 3307, 5433, 9200, 5601 are available
-- Permission errors: Run `chmod +x docker-entrypoint.sh` if needed
-- Database connection: Wait for health checks before running Rails commands
-
-Complete reset:
+### 3. Run the Application
 
 ```bash
-docker-compose down -v --remove-orphans
-docker-compose up -d
-# Wait 60 seconds, then run db:create db:migrate
+# Build and start all services
+docker compose up --build
+
+# Wait ~30 seconds for MySQL to initialize, then setup database
+docker compose exec web bundle exec rails db:create db:migrate db:seed
 ```
 
-## 🛠️ Installation
+### 4. Access the Application
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd rspec_boilerplate
-   ```
+- **Main app**: http://localhost:3000
+- **Elasticsearch**: http://localhost:9200
+- **Kibana**: http://localhost:5601
 
-2. **Install dependencies**
-   ```bash
-   bundle install
-   ```
+## 🌐 Usage
 
-3. **Setup the database**
-   ```bash
-   rails db:create
-   rails db:migrate
-   rails db:seed
-   ```
-
-4. **Start the Rails server**
-   ```bash
-   rails server
-   ```
-
-The API will be available at `http://localhost:3000`
-
-## 🗄️ Database Schema
-
-The application uses a relational database with the following models:
-
-### Core Models
-- **Smartphone** - Main entity with associations to all other models
-- **Manufacturer** - Phone manufacturers (Apple, Samsung, etc.)
-- **Model** - Phone models (iPhone 15, Galaxy S24, etc.)
-- **Memory** - Storage options (64GB, 128GB, 256GB, etc.)
-- **Year** - Release years
-- **OsVersion** - Operating system versions
-- **BodyColor** - Available colors
-
-### Relationships
-```
-Smartphone
-├── belongs_to :manufacturer
-├── belongs_to :model
-├── belongs_to :memory
-├── belongs_to :year
-├── belongs_to :os_version
-└── belongs_to :body_color
-
-Model
-└── belongs_to :manufacturer
-```
+1. **Visit the login page** at `http://localhost:3000`
+2. **Sign in with Google** using the OAuth button
+3. **Access the welcome page** (only available to authenticated users)
+4. **Use the smartphone API** at `POST /register_phone`
 
 ## 🔌 API Endpoints
 
-### Register Smartphone
+### Smartphone Management
+
 **POST** `/register_phone`
 
 Creates a new smartphone record with validation.
@@ -193,18 +111,53 @@ Creates a new smartphone record with validation.
 
 Returns application health status.
 
+## 🗄️ Database Schema
+
+The application uses a MySQL database with the following models:
+
+### Core Models
+- **Smartphone** - Main entity with associations to all other models
+- **User** - OAuth authenticated users
+- **Brand** - Phone manufacturers (Apple, Samsung, etc.)
+- **SmartphoneModel** - Phone models (iPhone 15, Galaxy S24, etc.)
+- **Memory** - Storage options (64GB, 128GB, 256GB, etc.)
+- **Year** - Release years
+- **OsVersion** - Operating system versions
+- **BodyColor** - Available colors
+
+### Relationships
+```
+Smartphone
+├── belongs_to :model_option
+│   ├── belongs_to :smartphone_model
+│   ├── belongs_to :body_color
+│   └── belongs_to :memory
+
+SmartphoneModel
+├── belongs_to :brand
+├── belongs_to :year
+└── belongs_to :os_version
+
+User (OAuth)
+├── email (unique)
+├── provider
+└── uid
+```
+
 ## 🧪 Testing
 
 This project includes comprehensive RSpec testing setup:
 
 ### Running Tests
 ```bash
-# Run all tests
-bundle exec rspec
+# Run all tests (Docker)
+docker compose exec web bundle exec rspec
 
-# Run specific test files
-bundle exec rspec spec/models/
-bundle exec rspec spec/controllers/
+# Run specific test file
+docker compose exec web bundle exec rspec spec/models/smartphone_spec.rb
+
+# Run all tests (local)
+bundle exec rspec
 
 # Run with coverage
 bundle exec rspec --format documentation
@@ -217,8 +170,8 @@ spec/
 │   └── smartphones_controller_spec.rb
 ├── models/
 │   ├── smartphone_spec.rb
-│   ├── manufacturer_spec.rb
-│   ├── model_spec.rb
+│   ├── brand_spec.rb
+│   ├── smartphone_model_spec.rb
 │   ├── memory_spec.rb
 │   ├── year_spec.rb
 │   ├── os_version_spec.rb
@@ -233,26 +186,34 @@ spec/
 - **Model Specs** - Test associations, validations, and methods
 - **Controller Specs** - Test API endpoints and responses
 - **Algorithm Tests** - Palindrome and matrix rotation tests
-- **Factory Support** - Ready for FactoryBot integration
+- **Factory Support** - FactoryBot integration for test data
 
 ## 🔍 Elasticsearch Integration
 
-The project includes Elasticsearch configuration for future search functionality:
-
-### Setup Elasticsearch with Docker
-```bash
-# Build and run Elasticsearch container
-cd elastic_search
-docker build -t elasticsearch-custom .
-docker run -d -p 9200:9200 -p 9300:9300 elasticsearch-custom
-```
+The project includes Elasticsearch configuration for search functionality:
 
 ### Configuration
-- **Dockerfile** - Custom Elasticsearch 7.15.2 image
-- **elasticsearch.yml** - Cluster configuration
-- **Ports** - 9200 (HTTP), 9300 (Transport)
+- **Elasticsearch 8.8.0** with Docker
+- **Kibana 8.8.0** for data visualization
+- **Health checks** and proper service dependencies
+- **Ports** - 9200 (HTTP), 9300 (Transport), 5601 (Kibana)
 
-## 🛠️ Development Tools
+## 🛠️ Development
+
+### Database Management
+```bash
+# Run migrations
+docker compose exec web bundle exec rails db:migrate
+
+# Reset database
+docker compose exec web bundle exec rails db:reset
+
+# Access Rails console
+docker compose exec web bundle exec rails console
+
+# View logs
+docker compose logs -f web
+```
 
 ### Code Quality
 - **RuboCop** - Ruby style guide enforcement
@@ -261,9 +222,6 @@ docker run -d -p 9200:9200 -p 9300:9300 elasticsearch-custom
 
 ### Debugging
 ```bash
-# Start Rails console with debugging
-rails console
-
 # Run RuboCop
 bundle exec rubocop
 
@@ -271,92 +229,81 @@ bundle exec rubocop
 bundle exec rubocop -a
 ```
 
+## 🏗️ Architecture
+
+- **Rails 7.1.1** with API and web interface
+- **MySQL 8.0** for primary database
+- **Elasticsearch 8.8.0** for search functionality
+- **Docker Compose** for container orchestration
+- **Google OAuth 2.0** for authentication
+- **Bootstrap 5** for responsive UI
+
+## 🔒 Security Features
+
+- ✅ **OAuth 2.0 authentication** with Google
+- ✅ **Session management** with secure cookies
+- ✅ **CSRF protection** enabled
+- ✅ **Input validation** on all API endpoints
+- ✅ **Database constraints** and validations
+
 ## 📁 Project Structure
 
 ```
 rspec_boilerplate/
 ├── app/
 │   ├── controllers/
+│   │   ├── application_controller.rb
+│   │   ├── pages_controller.rb
+│   │   ├── sessions_controller.rb
 │   │   └── smartphones_controller.rb
-│   └── models/
-│       ├── smartphone.rb
-│       ├── manufacturer.rb
-│       ├── model.rb
-│       ├── memory.rb
-│       ├── year.rb
-│       ├── os_version.rb
-│       └── body_color.rb
+│   ├── models/
+│   │   ├── user.rb
+│   │   ├── smartphone.rb
+│   │   ├── brand.rb
+│   │   ├── smartphone_model.rb
+│   │   └── ... (other models)
+│   └── views/
+│       ├── layouts/
+│       └── pages/
 ├── config/
-│   └── routes.rb
+│   ├── routes.rb
+│   ├── routes/
+│   │   └── auth.rb
+│   └── initializers/
+│       └── omniauth.rb
 ├── db/
 │   ├── migrate/
 │   └── schema.rb
-├── elastic_search/
-│   ├── Dockerfile
-│   └── elastic_search_docker
-├── spec/
-│   ├── controllers/
-│   │   └── smartphones_controller_spec.rb
-│   ├── models/
-│   │   ├── smartphone_spec.rb
-│   │   ├── manufacturer_spec.rb
-│   │   ├── model_spec.rb
-│   │   ├── memory_spec.rb
-│   │   ├── year_spec.rb
-│   │   ├── os_version_spec.rb
-│   │   └── body_color_spec.rb
-│   ├── is_palindrome_spec.rb
-│   ├── rotate_matrix_spec.rb
-│   ├── rails_helper.rb
-│   └── spec_helper.rb
-├── Gemfile
-├── LICENSE
-├── README.md
-└── elasticsearch.yml
+├── spec/ (comprehensive test suite)
+├── docker-compose.yml
+├── Dockerfile
+└── README.md
 ```
 
-## 🚀 Getting Started with Development
+## 🚀 Contributing
 
 1. **Fork the repository**
 2. **Create a feature branch**
    ```bash
    git checkout -b feature/your-feature-name
    ```
-3. **Make your changes**
-4. **Write tests** for new functionality
-5. **Run the test suite**
+3. **Make your changes** and write tests
+4. **Run the test suite**
    ```bash
-   bundle exec rspec
+   docker compose exec web bundle exec rspec
    ```
-6. **Commit your changes**
+5. **Ensure code quality**
    ```bash
-   git commit -m "feat/add-your-feature"
+   bundle exec rubocop
    ```
-7. **Push to your branch**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-## 📝 Contributing
-
-1. Follow the existing code style (RuboCop enforced)
-2. Write tests for all new functionality
-3. Ensure all tests pass before submitting
-4. Use descriptive commit messages with the `feat/` prefix
-5. Update documentation as needed
-
-## 🔧 Configuration
-
-### RSpec Configuration
-The project uses a custom `.rspec` file with:
-- Documentation format for better test output
-- Color output enabled
-- Rails-specific configurations
+6. **Commit your changes** using the project's commit format
+7. **Submit a pull request**
 
 ## 📚 Additional Resources
 
 - [Rails Guides](https://guides.rubyonrails.org/)
 - [RSpec Documentation](https://rspec.info/)
+- [Google OAuth 2.0 Documentation](https://developers.google.com/identity/protocols/oauth2)
 - [Elasticsearch Documentation](https://www.elastic.co/guide/)
 - [Docker Documentation](https://docs.docker.com/)
 
@@ -366,7 +313,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🤝 Support
 
-For questions or support, please open an issue in the repository or contact the development team.
+For questions or support, please open an issue in the repository.
 
 ---
 
