@@ -8,6 +8,10 @@ class PagesController < ApplicationController
   def welcome
     # User is already authenticated via before_action
   end
+
+  def legal
+    # Public page - no authentication required
+  end
 end
 
 
