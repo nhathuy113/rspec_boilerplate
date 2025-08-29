@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title RSpec Boilerplate - Operator Page
+    title = t('application.title')
     meta name="viewport" content="width=device-width,initial-scale=1"
     = csrf_meta_tags
     = csp_meta_tag
@@ -17,14 +17,18 @@ html
           a href="/" class="font-semibold text-lg flex items-center gap-2"
             svg.w-6.h-6 fill="currentColor" viewBox="0 0 24 24"
               path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
-            | RSpec Boilerplate - Operator Page
+            = t('application.title')
           .flex.items-center.gap-3
+            .flex.items-center.gap-2.text-sm
+              = link_to "EN", change_locale_path(:en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'bg-blue-600 text-white' : 'text-gray-300 hover:text-white'}"
+              = link_to "VI", change_locale_path(:vi), class: "px-2 py-1 rounded #{I18n.locale == :vi ? 'bg-blue-600 text-white' : 'text-gray-300 hover:text-white'}"
+              = link_to "JA", change_locale_path(:ja), class: "px-2 py-1 rounded #{I18n.locale == :ja ? 'bg-blue-600 text-white' : 'text-gray-300 hover:text-white'}"
             - if user_signed_in?
               span.text-sm.md:text-base.opacity-80
-                | Welcome, #{current_user.name}
-              = link_to "Sign Out", sign_out_path, method: :delete, class: "px-3 py-2 rounded-md border border-white/20 hover:bg-white/10 transition"
+                = t('layout.welcome_message', name: current_user.name)
+              = link_to t('layout.sign_out'), sign_out_path, method: :delete, class: "px-3 py-2 rounded-md border border-white/20 hover:bg-white/10 transition"
             - else
-              = link_to "Sign in with Google", "/auth/google_oauth2", class: "px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition text-white"
+              = link_to t('layout.sign_in'), "/auth/google_oauth2", class: "px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition text-white"
 
     .max-w-6xl.mx-auto.px-4.py-6
       - if notice

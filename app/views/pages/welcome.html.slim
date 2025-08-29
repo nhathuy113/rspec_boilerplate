@@ -1,38 +1,38 @@
 .max-w-5xl.mx-auto
   .text-center.mb-10
     h1.text-4xl.font-bold.mb-2
-      | Welcome, #{current_user.name}! 👋
-    p.text-gray-600 You've successfully signed in with Google OAuth
+      = t('pages.welcome.title', name: current_user.name)
+    p.text-gray-600 = t('pages.welcome.subtitle')
 
   .grid.md:grid-cols-2.gap-6
     .bg-white.rounded-lg.shadow
       .p-6
-        h5.text-lg.font-semibold.mb-3 🚀 Your Account
+        h5.text-lg.font-semibold.mb-3 = t('pages.welcome.account_section.title')
         ul.space-y-1.text-gray-700
           li
-            strong Name:
+            strong = "#{t('pages.welcome.account_section.name')}:"
             = " #{current_user.name}"
           li
-            strong Email:
+            strong = "#{t('pages.welcome.account_section.email')}:"
             = " #{current_user.email}"
           li
-            strong Provider:
+            strong = "#{t('pages.welcome.account_section.provider')}:"
             = " #{current_user.provider.titleize}"
           li
-            strong User ID:
+            strong = "#{t('pages.welcome.account_section.user_id')}:"
             = " #{current_user.uid}"
 
     .bg-white.rounded-lg.shadow
       .p-6
-        h5.text-lg.font-semibold.mb-3 📱 Smartphone API
-        p.text-gray-600 Access the smartphone management API:
-        code.inline-block.bg-gray-100.text-gray-800.rounded.px-2.py-1 POST /register_phone
+        h5.text-lg.font-semibold.mb-3 = t('pages.welcome.api_section.title')
+        p.text-gray-600 = t('pages.welcome.api_section.description')
+        code.inline-block.bg-gray-100.text-gray-800.rounded.px-2.py-1 = t('pages.welcome.api_section.endpoint')
         .mt-3
-          a.btn href="#" onclick="showApiExample()" class="inline-flex items-center px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white transition" View API Example
+          a.btn href="#" onclick="showApiExample()" class="inline-flex items-center px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 text-white transition" = t('pages.welcome.api_section.view_example')
 
   .mt-10.bg-white.rounded-lg.shadow
     .p-6
-      h5.text-lg.font-semibold.mb-4 🔧 Development Features
+      h5.text-lg.font-semibold.mb-4 = t('pages.welcome.features_section.title')
       .grid.md:grid-cols-2.gap-4.text-gray-700
         ul.space-y-1
           li ✅ RSpec testing framework
@@ -46,7 +46,7 @@
           li ✅ Session management
 
   .mt-6.text-center
-    = link_to "Sign Out", sign_out_path, method: :delete, class: "inline-flex items-center px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-50 text-gray-700 transition"
+    = link_to t('pages.welcome.sign_out'), sign_out_path, method: :delete, class: "inline-flex items-center px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-50 text-gray-700 transition"
 
 script
   |

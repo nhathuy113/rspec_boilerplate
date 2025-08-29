@@ -5,19 +5,19 @@ class SessionsController < ApplicationController
     
     if user
       session[:user_id] = user.id
-      redirect_to welcome_path, notice: 'Successfully signed in!'
+      redirect_to welcome_path, notice: t('sessions.sign_in_success')
     else
-      redirect_to login_path, alert: 'Authentication failed.'
+      redirect_to login_path, alert: t('sessions.auth_failed')
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to login_path, notice: 'Successfully signed out!'
+    redirect_to login_path, notice: t('sessions.sign_out_success')
   end
 
   def failure
-    redirect_to login_path, alert: 'Authentication failed. Please try again.'
+    redirect_to login_path, alert: t('sessions.auth_failed_retry')
   end
 end
 

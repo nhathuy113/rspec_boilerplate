@@ -31,5 +31,9 @@ module RspecBoilerplate
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Flash
+
+    # Available locales
+    config.i18n.available_locales = [:en, :vi, :ja]
+    config.i18n.default_locale = :en
   end
 end

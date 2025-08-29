@@ -1,0 +1,84 @@
+ja:
+  application:
+    title: "RSpec Boilerplate - オペレーターページ"
+    name: "RSpec Boilerplate"
+  
+  pages:
+    login:
+      title: "RSpec Boilerplateへようこそ"
+      description: "これはGoogle OAuth認証、Dockerコンテナ化、包括的テストを実証するPOCです。オペレーターダッシュボードにアクセスするにはサインインしてください。"
+      sign_in_button: "Googleでサインイン"
+      terms_text: "サインインすることで、"
+      terms_link: "利用規約とプライバシーポリシー"
+    
+    welcome:
+      title: "ようこそ、%{name}さん！👋"
+      subtitle: "Google OAuthで正常にサインインしました"
+      account_section:
+        title: "🚀 あなたのアカウント"
+        name: "名前"
+        email: "メールアドレス"
+        provider: "プロバイダー"
+        user_id: "ユーザーID"
+      api_section:
+        title: "📱 スマートフォンAPI"
+        description: "スマートフォン管理APIにアクセス："
+        endpoint: "POST /register_phone"
+        view_example: "API例を表示"
+      features_section:
+        title: "🔧 開発機能"
+        features:
+          - "RSpecテストフレームワーク"
+          - "テストデータ用FactoryBot"
+          - "Google OAuth認証"
+          - "MySQLデータベース"
+          - "Elasticsearch統合"
+          - "Dockerコンテナ化"
+          - "Tailwind UI"
+          - "セッション管理"
+      sign_out: "サインアウト"
+    
+    legal:
+      title: "利用規約とプライバシーポリシー"
+      terms:
+        title: "利用規約"
+        description: "このアプリケーションを使用することで、すべての適用される法律と規制に準拠することに同意します。このサービスは「現状のまま」提供され、いかなる保証もありません。"
+        guidelines_title: "利用ガイドライン"
+        guidelines:
+          - "アプリケーションを責任を持って、意図された目的に従って使用する"
+          - "システムへの不正アクセスを試みない"
+          - "他のユーザーのプライバシーと権利を尊重する"
+          - "セキュリティの脆弱性や問題をすぐに報告する"
+      privacy:
+        title: "プライバシーポリシー"
+        description: "以下のようにあなたの情報を収集・処理します："
+        collect_title: "収集する情報"
+        collect:
+          - "Google OAuthアカウントからのメールアドレスと名前"
+          - "認証目的のセッション情報"
+          - "サービス改善のための使用データ"
+        use_title: "情報の使用方法"
+        use:
+          - "認証サービスの提供と維持"
+          - "アカウントに関する連絡"
+          - "アプリケーションとユーザーエクスペリエンスの改善"
+          - "法的義務の遵守"
+        security_title: "データセキュリティ"
+        security: "個人情報を不正アクセス、改ざん、漏洩、破壊から保護するため、適切なセキュリティ対策を実施しています。"
+        contact_title: "お問い合わせ"
+        contact: "これらの規約やプライバシーポリシーについてご質問がある場合は、アプリケーションを通してお問い合わせください。"
+      back_to_login: "ログインに戻る"
+  
+  layout:
+    welcome_message: "ようこそ、%{name}さん"
+    sign_out: "サインアウト"
+    sign_in: "Googleでサインイン"
+  
+  sessions:
+    sign_in_success: "正常にサインインしました！"
+    sign_out_success: "正常にサインアウトしました！"
+    auth_failed: "認証に失敗しました。"
+    auth_failed_retry: "認証に失敗しました。もう一度お試しください。"
+  
+  errors:
+    sign_in_required: "このページにアクセスするにはサインインしてください。"

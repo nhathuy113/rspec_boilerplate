@@ -13,6 +13,9 @@ get    '/signout',  to: 'sessions#destroy'
 # Legal pages
 get '/legal', to: 'pages#legal'
 
+# Locale switching
+get '/change_locale/:locale', to: 'pages#change_locale', as: :change_locale
+
 
 
 

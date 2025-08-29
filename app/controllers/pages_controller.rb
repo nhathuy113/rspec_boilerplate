@@ -12,6 +12,14 @@ class PagesController < ApplicationController
   def legal
     # Public page - no authentication required
   end
+
+  def change_locale
+    locale = params[:locale].to_s.strip.to_sym
+    if I18n.available_locales.include?(locale)
+      session[:locale] = locale
+    end
+    redirect_back(fallback_location: root_path)
+  end
 end
 
 
