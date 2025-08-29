@@ -21,9 +21,9 @@ describe SmartphonesController, type: :controller do
   describe 'POST #create' do
     context 'with valid parameters' do
       it 'creates a new smartphone' do
-        expect {
+        expect do
           post :create, params: valid_params
-        }.to change(Smartphone, :count).by(1)
+        end.to change(Smartphone, :count).by(1)
         expect(response).to have_http_status(:created)
       end
 

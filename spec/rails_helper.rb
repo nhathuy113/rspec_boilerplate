@@ -1,12 +1,11 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 # load rspec
 require 'spec_helper'
 
 # load rails
-require File.expand_path("../../config/environment", __FILE__)
-
+require File.expand_path('../config/environment', __dir__)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -15,7 +14,6 @@ require File.expand_path("../../config/environment", __FILE__)
 # run twice. It is recommended that you do not name files matching this glob to
 # end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-
 
 # The following line is provided for convenience purposes. It has the downside
 # of increasing the boot-up time by auto-requiring all files in the support
@@ -30,7 +28,6 @@ require File.expand_path("../../config/environment", __FILE__)
 # Checks for pending migrations before tests are run.
 # ActiveRecord::Migration.maintain_test_schema!
 
-
 # load rspec
 require 'rspec-rails'
 require 'rspec/rails'
@@ -44,19 +41,18 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 
   # config.before(:suite) do
   #   FactoryBot.find_definitions
   # end
-
 
   # config.include Shoulda::Matchers::ActiveModel, type: :model
   # config.include Shoulda::Matchers::ActiveRecord, type: :model

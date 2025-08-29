@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     return unless session[:user_id]
 
-    @current_user = User.find_by_id(session[:user_id])
+    @current_user = User.find_by(id: session[:user_id])
   end
 
   def user_signed_in?
@@ -24,11 +24,9 @@ class ApplicationController < ActionController::Base
   def set_locale
     return I18n.locale = session[:locale] if session[:locale]
     return I18n.locale = extract_browser_locale if extract_browser_locale
-    
+
     I18n.locale = I18n.default_locale
   end
-
-  private
 
   def extract_browser_locale
     # Typical Accept-Language header: "vi-VN,vi;q=0.9,en;q=0.8,ja;q=0.7"

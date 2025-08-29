@@ -15,11 +15,7 @@ class PagesController < ApplicationController
 
   def change_locale
     locale = params[:locale].to_s.strip.to_sym
-    if I18n.available_locales.include?(locale)
-      session[:locale] = locale
-    end
+    session[:locale] = locale if I18n.available_locales.include?(locale)
     redirect_back(fallback_location: root_path)
   end
 end
-
-

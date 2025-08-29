@@ -1,5 +1,6 @@
 def suspicious_rotate_matrix_counter_clockwise(matrix)
   return matrix if matrix.blank?
+
   length = matrix.size
   height = matrix.first.size
 
@@ -7,11 +8,11 @@ def suspicious_rotate_matrix_counter_clockwise(matrix)
 
   (0..max_size_index).each do |xy|
     (xy..max_size_index).each do |y|
-      if not matrix[y] and matrix[xy][y]
+      if !matrix[y] && matrix[xy][y]
         matrix.push [matrix[xy][y]]
         matrix[xy].delete y
-        puts "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" if not matrix[y] and matrix[xy][y]
-        puts matrix
+        Rails.logger.debug { "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" } if !matrix[y] && matrix[xy][y]
+        Rails.logger.debug matrix
         # binding.pry
         next
       end
@@ -22,8 +23,8 @@ def suspicious_rotate_matrix_counter_clockwise(matrix)
         matrix[y][xy] = matrix[xy][y]
         matrix[xy][y] = swap
       end
-      puts "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" if matrix[xy][y]
-      puts matrix
+      Rails.logger.debug { "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" } if matrix[xy][y]
+      Rails.logger.debug matrix
       # binding.pry
     end
   end
@@ -35,7 +36,7 @@ def suspicious_rotate_matrix_counter_clockwise(matrix)
   #   end
   # end
 
-  return matrix
+  matrix
 end
 
 # def suspicious_rotate_matrix_counter_clockwise(matrix)
@@ -59,23 +60,22 @@ end
 
 require 'rails_helper'
 
-shared_examples :testing_suspicious_rotate_matrix_counter_clockwise do
-  it "rotates the matrix 90 degrees counter-clockwise" do
+shared_examples 'testing suspicious rotate matrix counter clockwise' do
+  it 'rotates the matrix 90 degrees counter-clockwise' do
     rotated_matrix = suspicious_rotate_matrix_counter_clockwise(original_matrix)
     expect(rotated_matrix).to eq expected_matrix
   end
 end
 
-describe "suspicious_rotate_matrix_counter_clockwise" do
-  describe "when testing various matrix sizes" do
-
-    context "when matrix is 4x4" do
-      let(:original_matrix) {
+describe 'suspicious_rotate_matrix_counter_clockwise' do
+  describe 'when testing various matrix sizes' do
+    context 'when matrix is 4x4' do
+      let(:original_matrix) do
         [
           [1,  2,  3,  4],
-          [5,  6,  7,  8],
+          [5,  6,  7,  8]
         ]
-      }
+      end
 
       # [
       #   [1,  5],
@@ -105,7 +105,6 @@ describe "suspicious_rotate_matrix_counter_clockwise" do
       #   [4]
       # ]
 
-
       # [
       #   [4,  5,  9,  13],
       #   [3,  6,  7,  8],
@@ -120,205 +119,217 @@ describe "suspicious_rotate_matrix_counter_clockwise" do
       #    [1, 14, 15, 16]
       #   ]
 
-      let(:expected_matrix) {
+      let(:expected_matrix) do
         [
           [4, 8, 12, 16],
           [3, 7, 11, 15],
           [2, 6, 10, 14],
           [1, 5, 9, 13]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is nil" do
+    context 'when matrix is nil' do
       let(:original_matrix) { nil }
       let(:expected_matrix) { nil }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is empty" do
+    context 'when matrix is empty' do
       let(:original_matrix) { [] }
       let(:expected_matrix) { [] }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 1x1" do
+    context 'when matrix is 1x1' do
       let(:original_matrix) { [[1]] }
       let(:expected_matrix) { [[1]] }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 1x2" do
-      let(:original_matrix) {
+    context 'when matrix is 1x2' do
+      let(:original_matrix) do
         [
           [1, 2]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [2],
           [1]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 2x2" do
-      let(:original_matrix) {
+    context 'when matrix is 2x2' do
+      let(:original_matrix) do
         [
           [1, 2],
           [3, 4]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [2, 4],
           [1, 3]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 2x1" do
-      let(:original_matrix) {
+    context 'when matrix is 2x1' do
+      let(:original_matrix) do
         [
           [1],
           [2]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [1, 2]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 1x3" do
-      let(:original_matrix) {
+    context 'when matrix is 1x3' do
+      let(:original_matrix) do
         [
           [1, 2, 3]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [3],
           [2],
           [1]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 3x3" do
-      let(:original_matrix) {
+    context 'when matrix is 3x3' do
+      let(:original_matrix) do
         [
           [1, 2, 3],
           [4, 5, 6],
           [7, 8, 9]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [3, 6, 9],
           [2, 5, 8],
           [1, 4, 7]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 3x1" do
-      let(:original_matrix) {
+    context 'when matrix is 3x1' do
+      let(:original_matrix) do
         [
           [1],
           [2],
           [3]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [1, 2, 3]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 1x4" do
-      let(:original_matrix) {
+    context 'when matrix is 1x4' do
+      let(:original_matrix) do
         [
           [1, 2, 3, 4]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [4],
           [3],
           [2],
           [1]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 2x4" do
-      let(:original_matrix) {
+    context 'when matrix is 2x4' do
+      let(:original_matrix) do
         [
           [1, 2, 3, 4],
           [5, 6, 7, 8]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [4, 8],
           [3, 7],
           [2, 6],
           [1, 5]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-    context "when matrix is 3x4" do
-      let(:original_matrix) {
+    context 'when matrix is 3x4' do
+      let(:original_matrix) do
         [
           [1, 2, 3, 4],
           [5, 6, 7, 8],
           [9, 10, 11, 12]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [4, 8, 12],
           [3, 7, 11],
           [2, 6, 10],
           [1, 5, 9]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
 
-
-
-    context "when matrix is 4x4" do
-      let(:original_matrix) {
+    context 'when matrix is 4x4' do
+      let(:original_matrix) do
         [
           [1,  2,  3,  4],
           [5,  6,  7,  8],
           [9,  10, nil, 12],
           [13, 14, 15, nil]
         ]
-      }
-      let(:expected_matrix) {
+      end
+      let(:expected_matrix) do
         [
           [4, 8, 12, nil],
           [3, 7, nil, 15],
           [2, 6, 10, 14],
           [1, 5, 9, 13]
         ]
-      }
-      include_examples :testing_suspicious_rotate_matrix_counter_clockwise
+      end
+
+      it_behaves_like 'testing suspicious rotate matrix counter clockwise'
     end
   end
 end
