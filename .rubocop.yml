@@ -1,0 +1,155 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.1
+  SuggestExtensions: false
+  DisplayCopNames: true
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'script/**/*'         # nếu bạn có
+
+# Layout
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'spec/**/*'
+
+Layout/IndentationWidth:
+  Width: 2
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+# Lint
+Lint/UnusedMethodArgument:
+  Enabled: false
+Lint/UnusedBlockArgument:
+  Enabled: false
+
+# Style
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+Style/SymbolArray:
+  EnforcedStyle: percent
+Style/WordArray:
+  EnforcedStyle: percent
+Style/GuardClause:
+  Enabled: true
+Style/ConditionalAssignment:
+  Enabled: false
+Style/MultilineIfModifier:
+  Enabled: false
+
+# Metrics
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'config/routes.rb'
+Metrics/MethodLength:
+  Max: 20
+Metrics/AbcSize:
+  Max: 30
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
+
+# Rails
+Rails/FilePath:
+  EnforcedStyle: arguments
+Rails/TimeZone:
+  EnforcedStyle: strict
+Rails/Date:
+  EnforcedStyle: strict
+Rails/Output:
+  Exclude:
+    - 'db/seeds.rb'
+Rails/HelperInstanceVariable:
+  Enabled: false
+Rails/FindBy:
+  Enabled: true
+Rails/FindEach:
+  Enabled: true
+Rails/HasManyOrHasOneDependent:
+  Enabled: true
+Rails/InverseOf:
+  Enabled: false
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: true
+Rails/RedundantForeignKey:
+  Enabled: true
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - production
+
+# RSpec
+RSpec/ExampleLength:
+  Max: 20
+RSpec/MultipleExpectations:
+  Max: 5
+RSpec/DescribedClass:
+  EnforcedStyle: described_class
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+RSpec/NestedGroups:
+  Max: 4
+RSpec/SubjectDeclaration:
+  EnforcedStyle: implicit
+
+# Performance
+Performance/RedundantMerge:
+  Enabled: true
+Performance/RedundantSortBy:
+  Enabled: true
+Performance/RedundantStringChars:
+  Enabled: true
+Performance/ReverseFirst:
+  Enabled: true
+Performance/SortReverse:
+  Enabled: true
+Performance/TimesMap:
+  Enabled: true
+
+# Security
+Security/YAMLLoad:
+  Enabled: true
+Security/JSONLoad:
+  Enabled: true
+Security/MarshalLoad:
+  Enabled: true
+
+# Bundler
+Bundler/InsecureProtocolSource:
+  Enabled: true
+Bundler/OrderedGems:
+  Enabled: true
+
+# Gemspec
+Gemspec/RequireMFA:
+  Enabled: true
+Gemspec/RubyVersionGlobalsUsage:
+  Enabled: true

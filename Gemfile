@@ -49,9 +49,13 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'pry-byebug'
   gem 'awesome_print'
-  gem 'rubocop', require: false
   gem 'pry'
   gem 'pry-byebug'
+  
+  gem 'rubocop', '~> 1.65', require: false
+  gem 'rubocop-rails', '~> 2.25', require: false
+  gem 'rubocop-rspec', '~> 3.0',  require: false
+  gem 'rubocop-performance', '~> 1.21', require: false
 end
 
 # In Gemfile
