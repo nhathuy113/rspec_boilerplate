@@ -28,4 +28,86 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  application:
+    title: "RSpec Boilerplate - Operator Page"
+    name: "RSpec Boilerplate"
+  
+  pages:
+    login:
+      title: "Welcome to RSpec Boilerplate"
+      description: "This is a POC demonstrating OAuth authentication with Google, Docker containerization, and comprehensive testing. Sign in to access the operator dashboard."
+      sign_in_button: "Sign in with Google"
+      terms_text: "By signing in, you agree to our"
+      terms_link: "terms and privacy policy"
+    
+    welcome:
+      title: "Welcome, %{name}! 👋"
+      subtitle: "You've successfully signed in with Google OAuth"
+      account_section:
+        title: "🚀 Your Account"
+        name: "Name"
+        email: "Email"
+        provider: "Provider"
+        user_id: "User ID"
+      api_section:
+        title: "📱 Smartphone API"
+        description: "Access the smartphone management API:"
+        endpoint: "POST /register_phone"
+        view_example: "View API Example"
+      features_section:
+        title: "🔧 Development Features"
+        features:
+          - "RSpec testing framework"
+          - "FactoryBot for test data"
+          - "Google OAuth authentication"
+          - "MySQL database"
+          - "Elasticsearch integration"
+          - "Docker containerization"
+          - "Tailwind UI"
+          - "Session management"
+      sign_out: "Sign Out"
+    
+    legal:
+      title: "Terms and Privacy Policy"
+      terms:
+        title: "Terms of Service"
+        description: "By using this application, you agree to comply with all applicable laws and regulations. This service is provided \"as is\" without warranties of any kind."
+        guidelines_title: "Usage Guidelines"
+        guidelines:
+          - "Use the application responsibly and in accordance with its intended purpose"
+          - "Do not attempt to gain unauthorized access to the system"
+          - "Respect the privacy and rights of other users"
+          - "Report any security vulnerabilities or issues immediately"
+      privacy:
+        title: "Privacy Policy"
+        description: "We collect and process your information as follows:"
+        collect_title: "Information We Collect"
+        collect:
+          - "Email address and name from your Google OAuth account"
+          - "Session information for authentication purposes"
+          - "Usage data to improve our services"
+        use_title: "How We Use Your Information"
+        use:
+          - "To provide and maintain the authentication service"
+          - "To communicate with you about your account"
+          - "To improve our application and user experience"
+          - "To comply with legal obligations"
+        security_title: "Data Security"
+        security: "We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction."
+        contact_title: "Contact"
+        contact: "If you have any questions about these terms or privacy policy, please contact us through the application."
+      back_to_login: "Back to Login"
+  
+  layout:
+    welcome_message: "Welcome, %{name}"
+    sign_out: "Sign Out"
+    sign_in: "Sign in with Google"
+  
+  sessions:
+    sign_in_success: "Successfully signed in!"
+    sign_out_success: "Successfully signed out!"
+    auth_failed: "Authentication failed."
+    auth_failed_retry: "Authentication failed. Please try again."
+  
+  errors:
+    sign_in_required: "Please sign in to access this page."
