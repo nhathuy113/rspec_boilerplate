@@ -1,0 +1,46 @@
+.max-w-4xl.mx-auto
+  .bg-white.rounded-lg.shadow.p-8
+    h1.text-3xl.font-bold.mb-6 Terms and Privacy Policy
+    
+    .prose.max-w-none
+      h2.text-2xl.font-semibold.mb-4 Terms of Service
+      p.text-gray-700.mb-4
+        | By using this application, you agree to comply with all applicable laws and regulations. 
+        | This service is provided "as is" without warranties of any kind.
+      
+      h3.text-xl.font-semibold.mb-3.text-gray-800 Usage Guidelines
+      ul.list-disc.list-inside.text-gray-700.mb-6.space-y-2
+        li Use the application responsibly and in accordance with its intended purpose
+        li Do not attempt to gain unauthorized access to the system
+        li Respect the privacy and rights of other users
+        li Report any security vulnerabilities or issues immediately
+      
+      h2.text-2xl.font-semibold.mb-4.mt-8 Privacy Policy
+      p.text-gray-700.mb-4
+        | We collect and process your information as follows:
+      
+      h3.text-xl.font-semibold.mb-3.text-gray-800 Information We Collect
+      ul.list-disc.list-inside.text-gray-700.mb-6.space-y-2
+        li Email address and name from your Google OAuth account
+        li Session information for authentication purposes
+        li Usage data to improve our services
+      
+      h3.text-xl.font-semibold.mb-3.text-gray-800 How We Use Your Information
+      ul.list-disc.list-inside.text-gray-700.mb-6.space-y-2
+        li To provide and maintain the authentication service
+        li To communicate with you about your account
+        li To improve our application and user experience
+        li To comply with legal obligations
+      
+      h3.text-xl.font-semibold.mb-3.text-gray-800 Data Security
+      p.text-gray-700.mb-4
+        | We implement appropriate security measures to protect your personal information 
+        | against unauthorized access, alteration, disclosure, or destruction.
+      
+      h3.text-xl.font-semibold.mb-3.text-gray-800 Contact
+      p.text-gray-700
+        | If you have any questions about these terms or privacy policy, 
+        | please contact us through the application.
+    
+    .mt-8.text-center
+      = link_to "Back to Login", login_path, class: "inline-flex items-center px-4 py-2 rounded-md bg-gray-600 hover:bg-gray-700 text-white transition"

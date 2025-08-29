@@ -3,7 +3,7 @@
     .shadow.rounded-lg.bg-white
       .p-8.text-center
         h2.text-2xl.font-semibold.mb-3 Welcome to RSpec Boilerplate
-        p.text-gray-500.mb-6 Sign in with your Google account to access the application
+        p.text-gray-500.mb-6 This is a POC demonstrating OAuth authentication with Google, Docker containerization, and comprehensive testing. Sign in to access the operator dashboard.
 
         .grid
           = link_to "/auth/google_oauth2", class: "inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md px-4 py-3 transition" do
@@ -15,4 +15,6 @@
             | Sign in with Google
 
         .mt-5
-          small.text-gray-500 By signing in, you agree to our terms of service and privacy policy
+          small.text-gray-500
+            | By signing in, you agree to our 
+            = link_to "terms and privacy policy", "/legal", class: "underline hover:text-gray-700"

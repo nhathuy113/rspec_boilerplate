@@ -10,6 +10,9 @@ delete '/signout',  to: 'sessions#destroy'
 get    '/sign_out', to: 'sessions#destroy'   # Fallback when JS method override is unavailable
 get    '/signout',  to: 'sessions#destroy'
 
+# Legal pages
+get '/legal', to: 'pages#legal'
+
 
 
 
