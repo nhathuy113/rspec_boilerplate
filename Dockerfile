@@ -5,18 +5,19 @@ RUN apt-get update -y \
     && apt-get install -y nodejs npm default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
-## Install Rails and gems
-#RUN apt-get update && apt-get install -y curl wget gnupg2 \
-#    && curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-#    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/channels/secure/google-cloud-sdk/debs/ main" > /etc/apt/sources.list.d/google-cloud-sdk.list' \
-#    && apt-get update \
-#    && apt-get install -y google-cloud-sdk \
-#    && apt-get install -y build-essential zlib1g-dev \
-#    && bundle install --local --jobs=4 \
-#    && bundle config build.nokogiri --use-system-libraries \
-#    && bundle exec rails new ../app --skip-bundle \
-#    && cd ../app \
-#    && bundle install --jobs=4 --retry=3
+
+RUN apt-get update && apt-get install -y curl gnupg unzip \
+ && curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor -o /usr/share/keyrings/google-linux.gpg \
+ && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google-linux.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+ && apt-get update && apt-get install -y google-chrome-stable \
+ && CHROME_MAJOR=$(google-chrome --version | sed -E 's/.* ([0-9]+)\..*/\1/') \
+ && CHROMEDRIVER_VERSION=$(curl -sS "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_MAJOR}") \
+ && curl -Lo /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" \
+ && unzip /tmp/chromedriver.zip -d /usr/local/bin \
+ && chmod +x /usr/local/bin/chromedriver \
+ && rm -rf /var/lib/apt/lists/* /tmp/*.zip
+ENV CHROME_BIN=/usr/bin/google-chrome
+ENV WEBDRIVER_CHROME_DRIVER=/usr/local/bin/chromedriver
 
 WORKDIR /app
 

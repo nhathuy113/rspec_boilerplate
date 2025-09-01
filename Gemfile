@@ -50,6 +50,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 7.0'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'rails-controller-testing'
 
   gem 'rubocop', '~> 1.65', require: false
   gem 'rubocop-performance', '~> 1.21', require: false
@@ -60,4 +61,7 @@ end
 # In Gemfile
 group :test do
   gem 'database_cleaner-active_record'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'webdrivers'
 end

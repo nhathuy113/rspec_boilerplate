@@ -1,42 +1,20 @@
 def suspicious_rotate_matrix_counter_clockwise(matrix)
   return matrix if matrix.blank?
-
-  length = matrix.size
-  height = matrix.first.size
-
-  max_size_index = [length, height].max - 1
-
-  (0..max_size_index).each do |xy|
-    (xy..max_size_index).each do |y|
-      if !matrix[y] && matrix[xy][y]
-        matrix.push [matrix[xy][y]]
-        matrix[xy].delete y
-        Rails.logger.debug { "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" } if !matrix[y] && matrix[xy][y]
-        Rails.logger.debug matrix
-        # binding.pry
-        next
-      end
-
-      matrix.push [] unless matrix[y]
-      if matrix[xy][y]
-        swap = matrix[y][xy]
-        matrix[y][xy] = matrix[xy][y]
-        matrix[xy][y] = swap
-      end
-      Rails.logger.debug { "swapped matrix[#{y}][#{xy}] with matrix[#{xy}][#{y}]" } if matrix[xy][y]
-      Rails.logger.debug matrix
-      # binding.pry
+  
+  rows = matrix.size
+  cols = matrix.first.size
+  
+  # Create a new matrix with swapped dimensions
+  result = Array.new(cols) { Array.new(rows) }
+  
+  # Rotate 90 degrees counter-clockwise
+  (0...rows).each do |i|
+    (0...cols).each do |j|
+      result[cols - 1 - j][i] = matrix[i][j]
     end
   end
-
-  # (0...length).each do |x|
-  #   (0...height).each do |y|
-  #     # result[height - 1 - y][x] = matrix[x][y] ## swapping
-  #
-  #   end
-  # end
-
-  matrix
+  
+  result
 end
 
 # def suspicious_rotate_matrix_counter_clockwise(matrix)
@@ -73,7 +51,9 @@ describe 'suspicious_rotate_matrix_counter_clockwise' do
       let(:original_matrix) do
         [
           [1,  2,  3,  4],
-          [5,  6,  7,  8]
+          [5,  6,  7,  8],
+          [9,  10, 11, 12],
+          [13, 14, 15, 16]
         ]
       end
 

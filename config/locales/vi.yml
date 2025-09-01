@@ -5,7 +5,7 @@ vi:
   
   pages:
     login:
-      title: "Chào mừng đến RSpec Boilerplate"
+      title: "Chào mừng đến với RSpec Boilerplate"
       description: "Đây là POC trình diễn xác thực OAuth với Google, container hóa Docker và kiểm thử toàn diện. Đăng nhập để truy cập bảng điều khiển."
       sign_in_button: "Đăng nhập bằng Google"
       terms_text: "Bằng việc đăng nhập, bạn đồng ý với"

@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
     else
       redirect_to login_path, alert: t('sessions.auth_failed')
     end
+  rescue ActiveRecord::RecordInvalid
+    redirect_to login_path, alert: t('sessions.auth_failed')
   end
 
   def destroy

@@ -14,8 +14,25 @@ class PagesController < ApplicationController
   end
 
   def change_locale
-    locale = params[:locale].to_s.strip.to_sym
-    session[:locale] = locale if I18n.available_locales.include?(locale)
-    redirect_back(fallback_location: root_path)
+    locale = params[:locale].to_s.strip
+    if I18n.available_locales.include?(locale.to_sym)
+      session[:locale] = locale
+    else
+      session[:locale] = 'en'
+    end
+    redirect_back(fallback_location: login_path)
   end
+
+  ## DEBUG
+  # def change_locale
+  #   Rails.logger.debug "[DEBUG] change_locale called with params: #{params.inspect}"
+  #   print "[DEBUG] change_locale called with params: #{params.inspect}"
+  #   puts "[DEBUG] change_locale called with params: #{params.inspect}" # shows in test output
+
+  #   session[:locale] = params[:locale].to_s.strip.presence || 'en'
+  #   Rails.logger.debug "[DEBUG] session[:locale] set to: #{session[:locale]}"
+  #   puts "[DEBUG] session[:locale] set to: #{session[:locale]}"
+
+  #   redirect_to(request.referer.presence || login_path)
+  # end
 end

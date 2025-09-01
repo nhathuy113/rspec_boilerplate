@@ -2,8 +2,8 @@
 
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
-           ENV.fetch('GOOGLE_CLIENT_ID', nil),
-           ENV.fetch('GOOGLE_CLIENT_SECRET', nil),
+           ENV.fetch('GOOGLE_CLIENT_ID', 'test_client_id'),
+           ENV.fetch('GOOGLE_CLIENT_SECRET', 'test_client_secret'),
            {
              prompt: 'consent',
              access_type: 'offline',

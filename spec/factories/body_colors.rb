@@ -1,4 +1,4 @@
-# spec/factories/brands.rb
+# spec/factories/body_colors.rb
 FactoryBot.define do
   factory :body_color do
     color { 'White' }
