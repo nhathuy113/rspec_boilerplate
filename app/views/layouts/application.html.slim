@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title = t('application.title')
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
+    / Tailwind CSS via CDN (sufficient for dev; switch to tailwindcss-rails for prod)
+    script src="https://cdn.tailwindcss.com"
+  body class="min-h-screen bg-gray-50 text-gray-900"
+    nav class="bg-gray-900 text-white"
+      .max-w-6xl.mx-auto.px-4
+        .flex.items-center.justify-between.h-16
+          a href="/" class="font-semibold text-lg flex items-center gap-2"
+            svg.w-6.h-6 fill="currentColor" viewBox="0 0 24 24"
+              path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+            = t('application.title')
+          .flex.items-center.gap-3
+            .flex.items-center.gap-2.text-sm
+              = link_to "EN", change_locale_path(:en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'bg-blue-600 text-white' : 'text-gray-300 hover:text-white'}"
+              = link_to "VI", change_locale_path(:vi), class: "px-2 py-1 rounded #{I18n.locale == :vi ? 'bg-blue-600 text-white' : 'text-gray-300 hover:text-white'}"
+              = link_to "JA", change_locale_path(:ja), class: "px-2 py-1 rounded #{I18n.locale == :ja ? 'bg-blue-600 text-white' : 'text-gray-300 hover:text-white'}"
+            - if user_signed_in?
+              span.text-sm.md:text-base.opacity-80
+                = t('layout.welcome_message', name: current_user.name)
+              = link_to t('layout.sign_out'), sign_out_path, method: :delete, class: "px-3 py-2 rounded-md border border-white/20 hover:bg-white/10 transition"
+            - else
+              = link_to t('layout.sign_in'), "/auth/google_oauth2", class: "px-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition text-white"
+
+    .max-w-6xl.mx-auto.px-4.py-6
+      - if notice
+        .mb-4.rounded.border.border-green-200.bg-green-50.text-green-800.px-4.py-3= notice
+      - if alert
+        .mb-4.rounded.border.border-red-200.bg-red-50.text-red-800.px-4.py-3= alert
+
+      = yield

@@ -10,68 +10,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_050539) do
-  create_table "body_colors", force: :cascade do |t|
+ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
+  create_table "body_colors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "manufacturers", force: :cascade do |t|
+  create_table "brands", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "memories", force: :cascade do |t|
+  create_table "memories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "models", force: :cascade do |t|
-    t.string "name"
-    t.integer "manufacturer_id", null: false
+  create_table "model_options", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "smartphone_model_id", null: false
+    t.bigint "body_color_id", null: false
+    t.bigint "memory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["manufacturer_id"], name: "index_models_on_manufacturer_id"
+    t.index ["body_color_id"], name: "index_model_options_on_body_color_id"
+    t.index ["memory_id"], name: "index_model_options_on_memory_id"
+    t.index ["smartphone_model_id"], name: "index_model_options_on_smartphone_model_id"
   end
 
-  create_table "os_versions", force: :cascade do |t|
+  create_table "os_versions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "smartphones", force: :cascade do |t|
-    t.integer "manufacturer_id", null: false
-    t.integer "model_id", null: false
-    t.integer "memory_id", null: false
-    t.integer "year_id", null: false
-    t.integer "os_version_id", null: false
-    t.integer "body_color_id", null: false
-    t.integer "price"
+  create_table "smartphone_models", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "year_id", null: false
+    t.bigint "os_version_id", null: false
+    t.bigint "brand_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["body_color_id"], name: "index_smartphones_on_body_color_id"
-    t.index ["manufacturer_id"], name: "index_smartphones_on_manufacturer_id"
-    t.index ["memory_id"], name: "index_smartphones_on_memory_id"
-    t.index ["model_id"], name: "index_smartphones_on_model_id"
-    t.index ["os_version_id"], name: "index_smartphones_on_os_version_id"
-    t.index ["year_id"], name: "index_smartphones_on_year_id"
+    t.index ["brand_id"], name: "index_smartphone_models_on_brand_id"
+    t.index ["os_version_id"], name: "index_smartphone_models_on_os_version_id"
+    t.index ["year_id"], name: "index_smartphone_models_on_year_id"
   end
 
-  create_table "years", force: :cascade do |t|
-    t.integer "year"
+  create_table "smartphones", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "imei"
+    t.bigint "model_option_id", null: false
+    t.index ["model_option_id"], name: "index_smartphones_on_model_option_id"
+  end
+
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "name"
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
+  end
+
+  create_table "years", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "models", "manufacturers"
-  add_foreign_key "smartphones", "body_colors"
-  add_foreign_key "smartphones", "manufacturers"
-  add_foreign_key "smartphones", "memories"
-  add_foreign_key "smartphones", "models"
-  add_foreign_key "smartphones", "os_versions"
-  add_foreign_key "smartphones", "years"
+  add_foreign_key "model_options", "body_colors"
+  add_foreign_key "model_options", "memories"
+  add_foreign_key "model_options", "smartphone_models"
+  add_foreign_key "smartphone_models", "brands"
+  add_foreign_key "smartphone_models", "os_versions"
+  add_foreign_key "smartphone_models", "years"
+  add_foreign_key "smartphones", "model_options"
 end

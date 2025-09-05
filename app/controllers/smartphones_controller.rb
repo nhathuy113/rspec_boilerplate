@@ -3,36 +3,19 @@ class SmartphonesController < ApplicationController
   # before_action :is_authorized
 
   def create
-    smartphone = Smartphone.new(smartphone_params)
+    # Find or create model_option based on the provided parameters
+    model_option = ModelOption.find_or_create_by!(
+      smartphone_model_id: params[:smartphone][:model_id],
+      body_color_id: params[:smartphone][:body_color_id],
+      memory_id: params[:smartphone][:memory_id]
+    )
 
-    ## Note: the author deeply recommend a validation gem or moving code to validation class for DRY and future upgrade/expansion
-    ## This fat controller method serve as demo for coding test or POC only.
-    errors = []
-    errors.push I18n.t("errors.smartphones.invalid_reference.manufacturer") unless Manufacturer.exists?(smartphone.manufacturer_id)
-    errors.push I18n.t("errors.smartphones.invalid_reference.model") unless Model.exists?(smartphone.model_id)
-    errors.push I18n.t("errors.smartphones.invalid_reference.memory") unless Memory.exists?(smartphone.memory_id)
-    errors.push I18n.t("errors.smartphones.invalid_reference.year") unless Year.exists?(smartphone.year_id)
-    errors.push I18n.t("errors.smartphones.invalid_reference.os_version") unless OsVersion.exists?(smartphone.os_version_id)
-    errors.push I18n.t("errors.smartphones.invalid_reference.body_color") unless BodyColor.exists?(smartphone.body_color_id)
-    if errors.any?
-      render json: errors, status: :not_found
-      return
-    end
-
-    if smartphone.manufacturer_id != Model.find(smartphone.model_id).manufacturer_id
-      errors.push I18n.t("errors.smartphones.not_match_manufacturer")
-    end
-    # if smartphone.price.blank? or not smartphone.price.kind_of? Integer
-    #   errors.push I18n.t("errors.smartphones.price_not_float")
-    # end
-
-    if errors.any?
-      render json: errors, status: :unprocessable_entity
-      return
-    end
+    smartphone = Smartphone.new(
+      imei: smartphone_params[:imei],
+      model_option_id: model_option.id
+    )
 
     if smartphone.save
-      # Model.find(smartphone.model_id).update(manufacturer_id: smartphone.manufacturer_id)
       render json: smartphone, status: :created
     else
       render json: smartphone.errors, status: :unprocessable_entity
@@ -42,6 +25,6 @@ class SmartphonesController < ApplicationController
   private
 
   def smartphone_params
-    params.require(:smartphone).permit(:manufacturer_id, :model_id, :memory_id, :year_id, :os_version_id, :body_color_id, :price)
+    params.require(:smartphone).permit(:imei, :model_id, :body_color_id, :memory_id)
   end
 end

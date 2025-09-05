@@ -24,9 +24,16 @@ module RspecBoilerplate
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers and assets when generating a new resource.
-    config.api_only = true
+    # Enable full-stack middleware (views, sessions, cookies, flash)
+    config.api_only = false
+
+    # Ensure session/cookies/flash are available even if toggled in environments
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use ActionDispatch::Flash
+
+    # Available locales
+    config.i18n.available_locales = [:en, :vi, :ja]
+    config.i18n.default_locale = :en
   end
 end

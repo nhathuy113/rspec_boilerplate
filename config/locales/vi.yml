@@ -1,0 +1,84 @@
+vi:
+  application:
+    title: "RSpec Boilerplate - Trang Điều Hành"
+    name: "RSpec Boilerplate"
+  
+  pages:
+    login:
+      title: "Chào mừng đến với RSpec Boilerplate"
+      description: "Đây là POC trình diễn xác thực OAuth với Google, container hóa Docker và kiểm thử toàn diện. Đăng nhập để truy cập bảng điều khiển."
+      sign_in_button: "Đăng nhập bằng Google"
+      terms_text: "Bằng việc đăng nhập, bạn đồng ý với"
+      terms_link: "điều khoản dịch vụ và chính sách bảo mật"
+    
+    welcome:
+      title: "Chào mừng, %{name}! 👋"
+      subtitle: "Bạn đã đăng nhập thành công bằng Google OAuth"
+      account_section:
+        title: "🚀 Tài Khoản Của Bạn"
+        name: "Tên"
+        email: "Email"
+        provider: "Nhà Cung Cấp"
+        user_id: "ID Người Dùng"
+      api_section:
+        title: "📱 API Điện Thoại"
+        description: "Truy cập API quản lý điện thoại:"
+        endpoint: "POST /register_phone"
+        view_example: "Xem Ví Dụ API"
+      features_section:
+        title: "🔧 Tính Năng Phát Triển"
+        features:
+          - "Framework kiểm thử RSpec"
+          - "FactoryBot cho dữ liệu test"
+          - "Xác thực Google OAuth"
+          - "Cơ sở dữ liệu MySQL"
+          - "Tích hợp Elasticsearch"
+          - "Container hóa Docker"
+          - "Giao diện Tailwind"
+          - "Quản lý phiên đăng nhập"
+      sign_out: "Đăng Xuất"
+    
+    legal:
+      title: "Điều Khoản và Chính Sách Bảo Mật"
+      terms:
+        title: "Điều Khoản Dịch Vụ"
+        description: "Bằng việc sử dụng ứng dụng này, bạn đồng ý tuân thủ tất cả luật pháp và quy định hiện hành. Dịch vụ này được cung cấp \"nguyên trạng\" mà không có bảo hành nào."
+        guidelines_title: "Hướng Dẫn Sử Dụng"
+        guidelines:
+          - "Sử dụng ứng dụng một cách có trách nhiệm và theo đúng mục đích"
+          - "Không cố gắng truy cập trái phép vào hệ thống"
+          - "Tôn trọng quyền riêng tư và quyền của người dùng khác"
+          - "Báo cáo ngay lập tức các lỗ hổng bảo mật hoặc vấn đề"
+      privacy:
+        title: "Chính Sách Bảo Mật"
+        description: "Chúng tôi thu thập và xử lý thông tin của bạn như sau:"
+        collect_title: "Thông Tin Chúng Tôi Thu Thập"
+        collect:
+          - "Địa chỉ email và tên từ tài khoản Google OAuth"
+          - "Thông tin phiên đăng nhập cho mục đích xác thực"
+          - "Dữ liệu sử dụng để cải thiện dịch vụ"
+        use_title: "Cách Chúng Tôi Sử Dụng Thông Tin"
+        use:
+          - "Để cung cấp và duy trì dịch vụ xác thực"
+          - "Để liên lạc với bạn về tài khoản"
+          - "Để cải thiện ứng dụng và trải nghiệm người dùng"
+          - "Để tuân thủ nghĩa vụ pháp lý"
+        security_title: "Bảo Mật Dữ Liệu"
+        security: "Chúng tôi thực hiện các biện pháp bảo mật phù hợp để bảo vệ thông tin cá nhân của bạn khỏi truy cập, thay đổi, tiết lộ hoặc phá hủy trái phép."
+        contact_title: "Liên Hệ"
+        contact: "Nếu bạn có câu hỏi về điều khoản hoặc chính sách bảo mật, vui lòng liên hệ với chúng tôi qua ứng dụng."
+      back_to_login: "Quay Lại Đăng Nhập"
+  
+  layout:
+    welcome_message: "Chào mừng, %{name}"
+    sign_out: "Đăng Xuất"
+    sign_in: "Đăng nhập bằng Google"
+  
+  sessions:
+    sign_in_success: "Đăng nhập thành công!"
+    sign_out_success: "Đăng xuất thành công!"
+    auth_failed: "Xác thực thất bại."
+    auth_failed_retry: "Xác thực thất bại. Vui lòng thử lại."
+  
+  errors:
+    sign_in_required: "Vui lòng đăng nhập để truy cập trang này."
