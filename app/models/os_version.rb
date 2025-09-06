@@ -1,0 +1,2 @@
+class OsVersion < ApplicationRecord
+end
