@@ -26,15 +26,25 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 # gem "rack-cors"
 
+gem 'mysql2' unless Gem.win_platform?
+gem 'pg'
+
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
-  gem "rspec"
-  gem 'rspec-rails'
+  gem 'faker'
+  gem 'factory_bot_rails', '~> 6.4'
+  gem 'rspec-rails', '~> 7.0'
+  gem 'shoulda-matchers', '~> 5.0'
   gem 'pry-byebug'
   gem 'awesome_print'
   gem 'rubocop', require: false
   gem 'pry'
-  gem 'pry-byebug'
 end
 
+# In Gemfile
+group :test do
+  gem 'database_cleaner-active_record'
+end
