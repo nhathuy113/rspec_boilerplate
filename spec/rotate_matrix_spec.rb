@@ -54,6 +54,40 @@ end
 #
 #   return result
 # end
+=======
+def filling_maxtrix(matrix)
+  # filling or checking
+  #
+  (0...matrix.size).each do |x|
+    (0...matrix.first.size).each do |y|
+      return if matrix[x][y].nil?
+    end
+  end
+
+  matrix.any? { |row| row.compact.size != matrix.size }
+  # return if not
+
+  suspicious_rotate_matrix_counter_clockwise(matrix)
+end
+
+def suspicious_rotate_matrix_counter_clockwise(matrix)
+  return matrix if matrix.blank?
+  length = matrix.size # 1
+  height = matrix.first.size # 1
+  result = Array.new(height) { Array.new(length, 0) } # size of matrix O(x * y)
+
+  # space complex = O(x * y)
+
+  (0...length).each do |x|
+    (0...height).each do |y|
+      result[height - 1 - y][x] = matrix[x][y]
+    end
+  end
+
+  return result
+  end
+end
+>>>>>>> 2dc08fa (Smarphone Controller and request unit test)
 
 # spec/suspicious_rotate_matrix_counter_clockwise_spec.rb
 
@@ -74,10 +108,16 @@ describe "suspicious_rotate_matrix_counter_clockwise" do
         [
           [1,  2,  3,  4],
           [5,  6,  7,  8],
+<<<<<<< HEAD
+=======
+          [9,  10, 11, 12],
+          [13, 14, 15, 16]
+>>>>>>> 2dc08fa (Smarphone Controller and request unit test)
         ]
       }
 
       # [
+<<<<<<< HEAD
       #   [1,  5],
       #   [2,  6,  7,  8],
       #   [3],
@@ -107,6 +147,8 @@ describe "suspicious_rotate_matrix_counter_clockwise" do
 
 
       # [
+=======
+>>>>>>> 2dc08fa (Smarphone Controller and request unit test)
       #   [4,  5,  9,  13],
       #   [3,  6,  7,  8],
       #   [2,  10, 11, 12],
