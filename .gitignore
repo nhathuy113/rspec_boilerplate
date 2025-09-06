@@ -36,3 +36,8 @@
 .keep
 .idea
 #/app/controllers/concerns/.keep
+
+# Database files
+db/development.sqlite3*
+*.sqlite3-shm
+*.sqlite3-wal
