@@ -149,6 +149,8 @@ spec/
 │   ├── year_spec.rb
 │   ├── os_version_spec.rb
 │   └── body_color_spec.rb
+├── is_palindrome_spec.rb
+├── rotate_matrix_spec.rb
 ├── rails_helper.rb
 └── spec_helper.rb
 ```
@@ -156,8 +158,8 @@ spec/
 ### Test Features
 - **Model Specs** - Test associations, validations, and methods
 - **Controller Specs** - Test API endpoints and responses
+- **Algorithm Tests** - Palindrome and matrix rotation tests
 - **Factory Support** - Ready for FactoryBot integration
-- **Database Cleaner** - Automatic test database cleanup
 
 ## 🔍 Elasticsearch Integration
 
@@ -220,11 +222,23 @@ rspec_boilerplate/
 │   └── elastic_search_docker
 ├── spec/
 │   ├── controllers/
+│   │   └── smartphones_controller_spec.rb
 │   ├── models/
+│   │   ├── smartphone_spec.rb
+│   │   ├── manufacturer_spec.rb
+│   │   ├── model_spec.rb
+│   │   ├── memory_spec.rb
+│   │   ├── year_spec.rb
+│   │   ├── os_version_spec.rb
+│   │   └── body_color_spec.rb
+│   ├── is_palindrome_spec.rb
+│   ├── rotate_matrix_spec.rb
 │   ├── rails_helper.rb
 │   └── spec_helper.rb
 ├── Gemfile
-└── README.md
+├── LICENSE
+├── README.md
+└── elasticsearch.yml
 ```
 
 ## 🚀 Getting Started with Development
@@ -260,7 +274,7 @@ rspec_boilerplate/
 ## 🔧 Configuration
 
 ### Environment Variables
-Create a `.env` file for environment-specific configurations:
+For environment-specific configurations, you can create a `.env` file:
 ```bash
 # Database
 DATABASE_URL=sqlite3:db/development.sqlite3

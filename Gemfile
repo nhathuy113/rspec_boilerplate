@@ -36,5 +36,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'pry'
   gem 'pry-byebug'
+  gem 'database_cleaner-active_record'
+  gem 'dotenv-rails'
 end
 
