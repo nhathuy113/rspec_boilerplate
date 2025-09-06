@@ -273,16 +273,6 @@ rspec_boilerplate/
 
 ## 🔧 Configuration
 
-### Environment Variables
-For environment-specific configurations, you can create a `.env` file:
-```bash
-# Database
-DATABASE_URL=sqlite3:db/development.sqlite3
-
-# Elasticsearch
-ELASTICSEARCH_URL=http://localhost:9200
-```
-
 ### RSpec Configuration
 The project uses a custom `.rspec` file with:
 - Documentation format for better test output
