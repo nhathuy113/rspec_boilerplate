@@ -4,16 +4,19 @@ require 'rails_helper'
 
 # describe 'SmartphonesController', type: :controller do
 describe SmartphonesController, type: :controller do
+  let!(:brand) { create(:brand) }
+  let!(:year) { create(:year) }
+  let!(:os_version) { create(:os_version) }
+  let!(:smartphone_model) { create(:smartphone_model, brand: brand, year: year, os_version: os_version) }
+  let!(:body_color) { create(:body_color) }
+  let!(:memory) { create(:memory) }
+  let!(:model_option) { create(:model_option, smartphone_model: smartphone_model, body_color: body_color, memory: memory) }
+
   let(:valid_params) do
     {
       smartphone: {
-        manufacturer_id: 1,
-        model_id: 1,
-        memory_id: 1,
-        year_id: 1,
-        os_version_id: 1,
-        body_color_id: 1,
-        price: 999
+        model_option_id: model_option.id,
+        imei: 'A12345678901234'
       }
     }
   end

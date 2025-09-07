@@ -1,58 +1,88 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
 # db/seeds.rb
 
-# Manufacturer seeds
-Manufacturer.create(name: 'Apple')
-Manufacturer.create(name: 'Samsung')
-Manufacturer.create(name: 'Google')
+years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
 
-# Model seeds
-Model.create(name: 'iPhone X', manufacturer: Manufacturer.find_by(name: 'Apple'))
-Model.create(name: 'Galaxy S21', manufacturer: Manufacturer.find_by(name: 'Samsung'))
-Model.create(name: 'Pixel 5', manufacturer: Manufacturer.find_by(name: 'Google'))
+# why no use
+# years = (2018..2023).to_a => 2018 1/2
 
-# Memory seeds
-Memory.create(size: '64GB')
-Memory.create(size: '128GB')
+years.each { |year| Year.create!(number: year) }
 
-# Year seeds
-Year.create(year: '2020')
-Year.create(year: '2021')
+# Brands
+brands = %w[Apple Samsung Google Huawei OnePlus]
+model_suffixes = {
+  'Apple'    => 'iPhone',
+  'Samsung'  => 'Galaxy',
+  'Google'   => 'Pixel',
+  'Huawei'   => 'Mate',
+  'OnePlus'  => 'OnePlus'
+}
+brands.each { |brand_name| Brand.create!(name: brand_name) }
 
-# OS Version seeds
-OsVersion.create(version: 'iOS 14')
-OsVersion.create(version: 'Android 11')
+# OS Versions
+os_versions = %w[iOS\ 12 iOS\ 13 iOS\ 14 Android\ 11 Android\ 12 Android\ 13]
+os_versions.each { |ver| OsVersion.create!(version: ver.gsub('\\', '')) }
 
-# Body Color seeds
-BodyColor.create(color: 'Black')
-BodyColor.create(color: 'Silver')
-BodyColor.create(color: 'Gold')
+# Define possible options for storage and colors
+storage_options = [64, 128, 256, 512]
+color_options = %w[Black White Gold Blue Red Green]
+edition_labels  = %w[Standard Pro Plus Lite]
 
-# Smartphone seeds
-Smartphone.create(
-  manufacturer: Manufacturer.find_by(name: 'Apple'),
-  model: Model.find_by(name: 'iPhone X'),
-  memory: Memory.find_by(size: '64GB'),
-  year: Year.find_by(year: '2020'),
-  os_version: OsVersion.find_by(version: 'iOS 14'),
-  body_color: BodyColor.find_by(color: 'Black'),
-  price: 999.99
-)
+brands_records = Brand.all.index_by(&:name)
+years_records = Year.all.index_by(&:number)
+os_records = OsVersion.all.index_by(&:version)
 
-Smartphone.create(
-  manufacturer: Manufacturer.find_by(name: 'Samsung'),
-  model: Model.find_by(name: 'Galaxy S21'),
-  memory: Memory.find_by(size: '128GB'),
-  year: Year.find_by(year: '2021'),
-  os_version: OsVersion.find_by(version: 'Android 11'),
-  body_color: BodyColor.find_by(color: 'Silver'),
-  price: 899.99
-)
+
+
+# os_versions.select { |os| os.start_with? os_name }
+
+# SmartPhone Models
+smartphone_models = [
+  { name: 'iPhone 12', year: 2022, os_version: 'iOS 14', brand: 'Apple' },
+  { name: 'Galaxy S21', year: 2022, os_version: 'Android 13', brand: 'Samsung' },
+  { name: 'Pixel 6', year: 2022, os_version: 'Android 13', brand: 'Google' },
+  { name: 'OnePlus 9 Pro', year: 2022, os_version: 'Android 13', brand: 'OnePlus' }
+]
+
+smartphone_models.each do |m|
+  SmartphoneModel.create!(
+    name: m[:name],
+    year: years_records[m[:year]],
+    os_version: os_records[m[:os_version]],
+    brand: brands_records[m[:brand]]
+  )
+end
+puts "Seeding Smartphone Model complete!"
+
+
+# Body Colors
+body_colors = %w[Space\ Gray Graphite Silver Black White]
+body_colors.each { |c| BodyColor.create!(color: c.gsub('\\', '')) }
+
+# Memories
+memories = %w[64GB 128GB 256GB 512GB]
+memories.each { |m| Memory.create!(size: m) }
+
+
+puts "Seeding Body color and Memory complete!"
+#----------------------------------------
+# Model Options (associating models with body colors and memories)
+created_models = SmartphoneModel.all
+colors = BodyColor.all
+mems = Memory.all
+
+created_models.each do |mdl|
+  [colors.sample, colors.sample].uniq.each do |c|
+    [mems.sample, mems.sample].uniq.each do |mem|
+      ModelOption.create!(smartphone_model: mdl, body_color: c, memory: mem)
+    end
+  end
+end
+puts "Seeding Model Options complete!"
+
+#
+# ## Smartphone (using existing data)
+first_option = ModelOption.first
+Smartphone.create!(model_option: first_option, imei: 'A12345678901234')
+Smartphone.create!(model_option: first_option, imei: 'B98765432109876')
+
+puts "Seeding complete!"

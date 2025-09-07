@@ -1,0 +1,44 @@
+services:
+  web:
+    build: .
+    container_name: rspec-boilerplate-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=sqlite3:/app/db/development.sqlite3
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_ENABLED=true
+    depends_on:
+      - elasticsearch
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b '0.0.0.0'"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.8.0
+    container_name: rspec-boilerplate-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.8.0
+    container_name: rspec-boilerplate-kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+volumes:
+  bundle_cache:
+  elasticsearch_data:

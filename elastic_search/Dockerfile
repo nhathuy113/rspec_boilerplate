@@ -1,5 +1,5 @@
 # Use the official Elasticsearch image from Docker Hub
-FROM docker.elastic.co/elasticsearch/elasticsearch:7.15.2
+FROM docker.elastic.co/elasticsearch/elasticsearch:8.8.0
 
 # Expose Elasticsearch port
 EXPOSE 9200

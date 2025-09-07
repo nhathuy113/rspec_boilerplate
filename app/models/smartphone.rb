@@ -1,8 +1,8 @@
 class Smartphone < ApplicationRecord
-  belongs_to :manufacturer
-  belongs_to :model
-  belongs_to :memory
-  belongs_to :year
-  belongs_to :os_version
-  belongs_to :body_color
+  belongs_to :model_option
+  # has_one :smartphone_model, through: :model_option
+
+
+  validates :imei, presence: true, format: { with: /\A[0-9A-Za-z]{8,20}\z/, message: 'IMEI must be 8-20 alphanumeric characters' }
 end
+
