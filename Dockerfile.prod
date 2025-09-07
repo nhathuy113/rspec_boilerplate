@@ -2,7 +2,7 @@ FROM ruby:3.1.6-slim
 
 # Install system dependencies
 RUN apt-get update -qq && \
-    apt-get install -y build-essential default-mysql-client curl && \
+    apt-get install -y build-essential default-mysql-client default-libmysqlclient-dev curl && \
     rm -rf /var/lib/apt/lists/*
 
 # Create app user for security
