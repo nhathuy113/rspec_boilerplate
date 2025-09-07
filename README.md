@@ -13,10 +13,84 @@ A Ruby on Rails API application with comprehensive RSpec testing framework for m
 
 ## 📋 Prerequisites
 
-- Ruby 3.2.2
+- Ruby 3.1.6
 - Rails 7.1.1
-- SQLite3
-- Docker (for Elasticsearch)
+- MySQL 8.0 (Primary) / PostgreSQL 13 (Legacy)
+- Docker & Docker Compose (for full development stack)
+
+## 🐳 Docker Development Environment
+
+### Quick Start
+```bash
+# 1. Clone and setup environment
+cp .env.example .env
+
+# 2. Start all services
+docker-compose up -d
+
+# 3. Setup database (wait ~30 seconds for MySQL to start)
+docker-compose exec web rails db:create db:migrate db:seed
+
+# 4. Access application
+open http://localhost:3000
+```
+
+### Available Development Environments
+
+Environment | File | MySQL Port | PostgreSQL Port | Purpose
+--- | --- | --- | --- | ---
+Main | docker-compose.yml | 3306 | - | Full stack with Elasticsearch/Kibana
+DevContainer | .devcontainer/docker-compose.yml | 3307 | 5433 | VS Code development
+
+### Services & Access Points
+
+Main Environment:
+
+- Rails API: http://localhost:3000
+- MySQL: localhost:3306 (root/password)
+- Elasticsearch: http://localhost:9200
+- Kibana: http://localhost:5601
+
+DevContainer Environment:
+
+- MySQL: localhost:3307 (root/password)
+- PostgreSQL: localhost:5433 (postgres/secret)
+
+### Database Management
+
+```bash
+# View application logs
+docker-compose logs -f web
+
+# Access Rails console
+docker-compose exec web rails console
+
+# Reset database
+docker-compose exec web rails db:reset
+
+# Stop all services
+docker-compose down
+
+# Reset all data (including volumes)
+docker-compose down -v
+```
+
+### Troubleshooting
+
+Common Issues:
+
+- Startup time: MySQL needs 30-60 seconds to initialize on first run
+- Port conflicts: Ensure ports 3000, 3306, 3307, 5433, 9200, 5601 are available
+- Permission errors: Run `chmod +x docker-entrypoint.sh` if needed
+- Database connection: Wait for health checks before running Rails commands
+
+Complete reset:
+
+```bash
+docker-compose down -v --remove-orphans
+docker-compose up -d
+# Wait 60 seconds, then run db:create db:migrate
+```
 
 ## 🛠️ Installation
 
