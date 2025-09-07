@@ -11,28 +11,28 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
-  create_table "body_colors", force: :cascade do |t|
+  create_table "body_colors", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "brands", force: :cascade do |t|
+  create_table "brands", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "memories", force: :cascade do |t|
+  create_table "memories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "model_options", force: :cascade do |t|
-    t.integer "smartphone_model_id", null: false
-    t.integer "body_color_id", null: false
-    t.integer "memory_id", null: false
+  create_table "model_options", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "smartphone_model_id", null: false
+    t.bigint "body_color_id", null: false
+    t.bigint "memory_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["body_color_id"], name: "index_model_options_on_body_color_id"
@@ -40,18 +40,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
     t.index ["smartphone_model_id"], name: "index_model_options_on_smartphone_model_id"
   end
 
-  create_table "os_versions", force: :cascade do |t|
+  create_table "os_versions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-<<<<<<< HEAD
-  create_table "smartphone_models", force: :cascade do |t|
+  create_table "smartphone_models", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
-    t.integer "year_id", null: false
-    t.integer "os_version_id", null: false
-    t.integer "brand_id", null: false
+    t.bigint "year_id", null: false
+    t.bigint "os_version_id", null: false
+    t.bigint "brand_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["brand_id"], name: "index_smartphone_models_on_brand_id"
@@ -59,13 +58,24 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_03_000003) do
     t.index ["year_id"], name: "index_smartphone_models_on_year_id"
   end
 
-  create_table "smartphones", force: :cascade do |t|
+  create_table "smartphones", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "imei"
-    t.integer "model_option_id", null: false
+    t.bigint "model_option_id", null: false
     t.index ["model_option_id"], name: "index_smartphones_on_model_option_id"
   end
 
-  create_table "years", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "name"
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
+  end
+
+  create_table "years", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
