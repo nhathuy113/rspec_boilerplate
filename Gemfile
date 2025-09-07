@@ -47,4 +47,5 @@ end
 # In Gemfile
 group :test do
   gem 'database_cleaner-active_record'
+  gem 'rspec_junit_formatter'
 end

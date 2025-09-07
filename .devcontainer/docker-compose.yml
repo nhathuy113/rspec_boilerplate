@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
     restart: always
     ports:
-      - "3307:3306"
+      - "6033:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
@@ -18,7 +18,7 @@ services:
       POSTGRES_PASSWORD: secret
     restart: always
     ports:
-      - "5433:5432"
+      - "2345:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

@@ -36,16 +36,6 @@ development:
 #  database_url: mysql2://root:password@mysql:3306/rspec_boilerplate_development
 #  database_url: mysql2://root:password@localhost:6033/rspec_boilerplate_development
   database: rspec_boilerplate_development
-  # Connection examples for different environments:
-  # 
-  # Local development (outside Docker):
-  # database_url: mysql2://root:password@localhost:3306/rspec_boilerplate_development
-  # 
-  # DevContainer development:
-  # database_url: mysql2://root:password@localhost:3307/rspec_boilerplate_development
-  #
-  # Docker Compose (default):
-  # Uses host: mysql (service name) and port: 3306 (internal)
 
 
 # Warning: The database defined as "test" will be erased and
@@ -54,6 +44,9 @@ development:
 test:
   <<: *default
   database: rspec_boilerplate_test
+  host: <%= ENV.fetch("DATABASE_HOST", "mysql") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "root") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "password") %>
 
 production:
   <<: *default
