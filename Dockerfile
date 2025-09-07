@@ -1,32 +1,42 @@
-FROM ruby:3.2.2-slim
+FROM ruby:3.1.6
 
-ENV BUNDLE_PATH=/usr/local/bundle \
-    BUNDLE_JOBS=4 \
-    BUNDLE_RETRY=3 \
-    APP_HOME=/app
-
-WORKDIR ${APP_HOME}
-
-RUN apt-get update -qq \
-    && apt-get install -y --no-install-recommends \
-       build-essential \
-       libsqlite3-dev \
-       libpq-dev \
-       default-libmysqlclient-dev \
-       curl \
-       git \
-       bash \
+# Install system dependencies
+RUN apt-get update -y \
+    && apt-get install -y nodejs npm default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
 
+## Install Rails and gems
+#RUN apt-get update && apt-get install -y curl wget gnupg2 \
+#    && curl -sS https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+#    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/channels/secure/google-cloud-sdk/debs/ main" > /etc/apt/sources.list.d/google-cloud-sdk.list' \
+#    && apt-get update \
+#    && apt-get install -y google-cloud-sdk \
+#    && apt-get install -y build-essential zlib1g-dev \
+#    && bundle install --local --jobs=4 \
+#    && bundle config build.nokogiri --use-system-libraries \
+#    && bundle exec rails new ../app --skip-bundle \
+#    && cd ../app \
+#    && bundle install --jobs=4 --retry=3
+
+WORKDIR /app
+
+# Copy Gemfile and Gemfile.lock
 COPY Gemfile Gemfile.lock ./
 
-RUN gem install bundler -v 2.4.10 \
-    && bundle install
+# Install gems
+RUN bundle install --jobs=4 --retry=3
 
+# Copy application files
 COPY . .
 
+# Make entrypoint script executable
+RUN chmod +x docker-entrypoint.sh
+
+# Expose port
 EXPOSE 3000
 
-CMD ["bash", "-lc", "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b 0.0.0.0"]
+# Set entrypoint
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
-
+# Start Rails server
+CMD ["bundle", "exec", "rails", "server", "-p", "3000", "-b", "0.0.0.0"]
