@@ -13,11 +13,7 @@ class SmartphoneModel < ApplicationRecord
 
   APPLE = 'Apple'
   def apple_models_must_use_ios
-    return true if brand.nil? || os_version.nil?
-    return true unless brand.name == APPLE
-
-    if os_version.version.nil? || !os_version.version.start_with?('iOS')
-      errors.add(:os_version, 'Apple models must use iOS.')
-    end
+    return unless brand&.name == APPLE
+    errors.add(:os_version, 'Apple models must use iOS.') unless os_version&.version&.start_with?('iOS')
   end
 end
