@@ -11,8 +11,11 @@ if ! bundle check > /dev/null 2>&1; then
 fi
 
 # Wait for MySQL to be ready
-echo "Waiting for MySQL to be ready..."
-until mysqladmin ping -h"mysql" -u"root" -p"password" --silent; do
+DB_HOST="${DB_HOST:-mysql}"
+DB_USER="${DB_USER:-root}"
+DB_PASSWORD="${DB_PASSWORD:-password}"
+echo "Waiting for MySQL ($DB_HOST) to be ready..."
+until mysqladmin ping -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" --silent; do
   echo "MySQL is not ready yet. Waiting..."
   sleep 2
 done
