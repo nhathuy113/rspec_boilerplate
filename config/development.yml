@@ -1,9 +1,0 @@
-mysql:
-  database: <%= ENV.fetch('MYSQL_DATABASE', 'rspec_boilerplate_development') %>
-  user: <%= ENV.fetch('DB_USER', 'root') %>
-  password: <%= ENV.fetch('DB_PASSWORD', 'password') %>
-
-postgresql:
-  password: <%= ENV.fetch('POSTGRES_PASSWORD', 'password') %>
-  database: <%= ENV.fetch('POSTGRES_DATABASE', 'rspec_boilerplate_legacy_development') %>
-  user: <%= ENV.fetch('POSTGRES_USER', 'rspec_boilerplate') %>
