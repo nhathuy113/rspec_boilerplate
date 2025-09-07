@@ -7,6 +7,8 @@ require 'spec_helper'
 # load rails
 require File.expand_path("../../config/environment", __FILE__)
 
+require 'database_cleaner/active_record'
+
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -23,9 +25,7 @@ require File.expand_path("../../config/environment", __FILE__)
 # require only the support files necessary.
 # Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-# Checks for pending migrations before tests are run.
-# If you are not using ActiveRecord, you can remove this line.
-# ActiveRecord::Migration.maintain_test_schema!
+ActiveRecord::Migration.maintain_test_schema!
 
 # Checks for pending migrations before tests are run.
 # ActiveRecord::Migration.maintain_test_schema!

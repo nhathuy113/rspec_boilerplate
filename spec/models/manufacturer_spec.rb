@@ -1,5 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Manufacturer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe Brand, type: :model do
+  it 'has many smartphone_models' do
+    expect(described_class.reflect_on_association(:smartphone_models).macro).to eq(:has_many)
+  end
 end
